@@ -8,6 +8,28 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Area2D",
+"class": "Actor",
+"language": "GDScript",
+"path": "res://actor/Actor.gd"
+}, {
+"base": "Actor",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://actor/Enemy.gd"
+}, {
+"base": "Actor",
+"class": "Player",
+"language": "GDScript",
+"path": "res://actor/Player.gd"
+} ]
+_global_script_class_icons={
+"Actor": "",
+"Enemy": "",
+"Player": ""
+}
+
 [application]
 
 config/name="Bac-man (Pac-man clone)"
