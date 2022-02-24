@@ -9,7 +9,7 @@ export var speed = 60
 
 
 var age = 0
-var facing = Facing.RIGHT
+var facing = Facing.RIGHT setget set_facing
 
 
 func _ready():
@@ -33,3 +33,37 @@ func _process(delta):
 			position.y += frame_speed
 		Facing.LEFT:
 			position.x -= frame_speed
+
+
+func set_facing(facing_):
+	match facing_:
+		Facing.UP:
+			turn_up()
+		Facing.RIGHT:
+			turn_right()
+		Facing.DOWN:
+			turn_down()
+		Facing.LEFT:
+			turn_left()
+
+	facing = facing_
+
+
+func turn_left():
+	$AnimatedSprite.rotation = 0
+	$AnimatedSprite.flip_h = true
+
+
+func turn_right():
+	$AnimatedSprite.rotation = 0
+	$AnimatedSprite.flip_h = false
+
+
+func turn_up():
+	$AnimatedSprite.rotation = -PI/2
+	$AnimatedSprite.flip_h = false
+
+
+func turn_down():
+	$AnimatedSprite.rotation = PI/2
+	$AnimatedSprite.flip_h = false

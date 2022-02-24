@@ -11,10 +11,10 @@ func _process(_delta):
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_up"):
-		facing = Facing.UP
+		set_facing(Facing.UP)
 	elif event.is_action_pressed("ui_right"):
-		facing = Facing.RIGHT
+		set_facing(Facing.RIGHT)
 	elif event.is_action_pressed("ui_down"):
-		facing = Facing.DOWN
+		set_facing(Facing.DOWN)
 	elif event.is_action_pressed("ui_left"):
-		facing = Facing.LEFT
+		set_facing(Facing.LEFT)
