@@ -2,14 +2,14 @@ class_name Actor
 extends Area2D
 
 
-enum Facing { UP, RIGHT, LEFT, DOWN }
+enum Facing { UP, RIGHT, LEFT, DOWN, NONE }
 
 
 export var speed = 60
 
 
 var age = 0
-var facing = Facing.RIGHT setget set_facing
+var facing = Facing.NONE setget set_facing
 
 
 func _ready():
@@ -17,12 +17,6 @@ func _ready():
 
 
 func _process(delta):
-	age += 1
-	if not age % 120:
-		print("tock")
-	elif not age % 60:
-		print("tick")
-	
 	var frame_speed = speed * delta
 	match facing:
 		Facing.UP:
@@ -33,6 +27,8 @@ func _process(delta):
 			position.y += frame_speed
 		Facing.LEFT:
 			position.x -= frame_speed
+		Facing.NONE:
+			pass
 
 
 func set_facing(facing_):
@@ -45,6 +41,8 @@ func set_facing(facing_):
 			turn_down()
 		Facing.LEFT:
 			turn_left()
+		Facing.NONE:
+			turn_right()
 
 	facing = facing_
 
