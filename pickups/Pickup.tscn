@@ -18,3 +18,4 @@ shape = SubResource( 1 )
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_Pickup_body_entered"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="queue_free"]
