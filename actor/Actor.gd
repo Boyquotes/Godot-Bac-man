@@ -4,30 +4,45 @@ extends KinematicBody2D
 
 enum Facing { UP, RIGHT, LEFT, DOWN, NONE }
 
+const unit_vectors = {
+	Facing.UP: Vector2.UP,
+	Facing.RIGHT: Vector2.RIGHT,
+	Facing.LEFT: Vector2.LEFT,
+	Facing.DOWN: Vector2.DOWN,
+	Facing.NONE: Vector2.ZERO,
+}
+
 
 export var speed = 60
 
-
 var age = 0
 var facing = Facing.NONE setget set_facing
+var queued_facing = Facing.NONE setget queue_facing
+var movement_epsilon = 1
+
 onready var screen_width = get_viewport_rect().size.x
 onready var screen_height = get_viewport_rect().size.y
+onready var space_state = get_world_2d().direct_space_state
 
 
 func _physics_process(delta):
 	var frame_speed = speed * delta
-	var velocity = Vector2.ZERO
-	match facing:
-		Facing.UP:
-			velocity.y -= frame_speed
-		Facing.RIGHT:
-			velocity.x += frame_speed
-		Facing.DOWN:
-			velocity.y += frame_speed
-		Facing.LEFT:
-			velocity.x -= frame_speed
-		Facing.NONE:
-			pass
+	var velocity = frame_speed * unit_vectors[queued_facing]
+
+	if facing != queued_facing:
+		var collision = move_and_collide(velocity, true, true, true) # test_only true
+		if collision and collision.travel.length() <= movement_epsilon:
+			# We're flush against a wall; check if we can turn soon
+			# TODO: un-hardcode the 8s
+			var corner = position + 8 * unit_vectors[facing] + 8 * unit_vectors[queued_facing]
+			var ray_result = space_state.intersect_ray(corner, corner + velocity)
+			if ray_result:
+				# We're nowhere near a turn - flush the queued turn
+				queue_facing(facing)
+			velocity = frame_speed * unit_vectors[facing]
+		else:
+			# We can turn to the queued_facing
+			set_facing(queued_facing)
 
 	# warning-ignore: RETURN_VALUE_DISCARDED
 	move_and_collide(velocity)
@@ -63,6 +78,10 @@ func set_facing(facing_):
 			turn_right()
 
 	facing = facing_
+
+
+func queue_facing(facing_):
+	queued_facing = facing_
 
 
 func turn_left():
