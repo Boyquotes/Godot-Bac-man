@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://pickups/Pickup.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/pellet.png" type="Texture" id=2]
+[ext_resource path="res://assets/Pickup_00.wav" type="AudioStream" id=3]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -16,3 +17,6 @@ pickup_type = "pellet"
 
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 1 )
+
+[node name="AudioStreamPlayer" parent="." index="2"]
+stream = ExtResource( 3 )
