@@ -12,6 +12,7 @@ animations = [ {
 } ]
 
 [node name="BigPellet" instance=ExtResource( 1 )]
+pickup_type = "big_pellet"
 
 [node name="AnimatedSprite" parent="." index="1"]
 frames = SubResource( 1 )
