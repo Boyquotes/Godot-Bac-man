@@ -1,5 +1,5 @@
 class_name Actor
-extends Area2D
+extends KinematicBody2D
 
 
 enum Facing { UP, RIGHT, LEFT, DOWN, NONE }
@@ -14,19 +14,23 @@ onready var screen_width = get_viewport_rect().size.x
 onready var screen_height = get_viewport_rect().size.y
 
 
-func _process(delta):
+func _physics_process(delta):
 	var frame_speed = speed * delta
+	var velocity = Vector2.ZERO
 	match facing:
 		Facing.UP:
-			position.y -= frame_speed
+			velocity.y -= frame_speed
 		Facing.RIGHT:
-			position.x += frame_speed
+			velocity.x += frame_speed
 		Facing.DOWN:
-			position.y += frame_speed
+			velocity.y += frame_speed
 		Facing.LEFT:
-			position.x -= frame_speed
+			velocity.x -= frame_speed
 		Facing.NONE:
 			pass
+
+	# warning-ignore: RETURN_VALUE_DISCARDED
+	move_and_collide(velocity)
 
 	# Modulus is a little awkward because floats, and also less flexible
 	if position.x >= screen_width:
