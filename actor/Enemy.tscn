@@ -1,8 +1,29 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://actor/Actor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actor/Enemy.gd" type="Script" id=2]
+[ext_resource path="res://assets/gost-walk2.png" type="Texture" id=3]
+[ext_resource path="res://assets/gost-walk6.png" type="Texture" id=4]
+[ext_resource path="res://assets/gost-walk5.png" type="Texture" id=5]
+[ext_resource path="res://assets/gost-walk0.png" type="Texture" id=6]
+[ext_resource path="res://assets/gost-walk4.png" type="Texture" id=7]
+[ext_resource path="res://assets/gost-walk1.png" type="Texture" id=8]
+[ext_resource path="res://assets/gost-walk7.png" type="Texture" id=9]
+[ext_resource path="res://assets/gost-walk3.png" type="Texture" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 10 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "walk",
+"speed": 12.0
+} ]
 
 [node name="Enemy" instance=ExtResource( 1 )]
 collision_layer = 4
 script = ExtResource( 2 )
+
+[node name="AnimatedSprite" parent="." index="1"]
+frames = SubResource( 1 )
+animation = "walk"
+playing = true
