@@ -8,3 +8,7 @@ export var enemy_start = Vector2(0,0)
 func _ready():
 	$Player.position = 16 * player_start + Vector2(16, 16)
 	$Enemy.position = 16 * enemy_start + Vector2(16, 16)
+
+
+func _on_EnemyNotifyTimer_timeout():
+	get_tree().call_group("enemies", "update_player_location", $Player.position)

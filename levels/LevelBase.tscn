@@ -16,3 +16,8 @@ script = ExtResource( 3 )
 collision_layer = 1
 
 [node name="Enemy" parent="." instance=ExtResource( 4 )]
+
+[node name="EnemyNotifyTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="EnemyNotifyTimer" to="." method="_on_EnemyNotifyTimer_timeout"]
