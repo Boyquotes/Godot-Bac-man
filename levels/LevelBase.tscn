@@ -20,4 +20,5 @@ collision_layer = 1
 [node name="EnemyNotifyTimer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="request_path" from="Enemy" to="." method="_on_Enemy_request_path"]
 [connection signal="timeout" from="EnemyNotifyTimer" to="." method="_on_EnemyNotifyTimer_timeout"]
