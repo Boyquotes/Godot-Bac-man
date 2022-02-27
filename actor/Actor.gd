@@ -35,7 +35,8 @@ func _physics_process(delta):
 			# We're flush against a wall; check if we can turn soon
 			# TODO: un-hardcode the 8s
 			var corner = position + 8 * unit_vectors[facing] + 8 * unit_vectors[queued_facing]
-			var ray_result = space_state.intersect_ray(corner, corner + velocity)
+			# collision_layer: walls only
+			var ray_result = space_state.intersect_ray(corner, corner + velocity, [], 1)
 			if ray_result:
 				# We're nowhere near a turn - flush the queued turn
 				queue_facing(facing)
