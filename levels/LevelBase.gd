@@ -4,10 +4,12 @@ extends TileMap
 export var player_start = Vector2(0,0)
 export var enemy_start = Vector2(0,0)
 
+onready var cell_offset = 0.5 * cell_size * Vector2.ONE
+
 
 func _ready():
-	$Player.position = 16 * player_start + Vector2(16, 16)
-	$Enemy.position = 16 * enemy_start + Vector2(16, 16)
+	$Player.position = map_to_world(player_start) + cell_offset
+	$Enemy.position = map_to_world(enemy_start) + cell_offset
 	get_tree().call_group("enemies", "set", "player", $Player)
 
 
