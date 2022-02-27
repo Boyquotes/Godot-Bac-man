@@ -103,3 +103,25 @@ func turn_up():
 func turn_down():
 	$AnimatedSprite.rotation = PI/2
 	$AnimatedSprite.flip_h = false
+
+
+func nearest_facing(vec: Vector2):
+	if abs(vec.x) >= abs(vec.y):
+		if vec.x >= 0:
+			return Facing.RIGHT
+		else:
+			return Facing.LEFT
+	else:
+		if vec.y >= 0:
+			return Facing.DOWN
+		else:
+			return Facing.UP
+
+
+func is_opposite_facing(f1, f2):
+	return (
+		(f1 == Facing.DOWN and f2 == Facing.UP)
+		or (f1 == Facing.UP and f2 == Facing.DOWN)
+		or (f1 == Facing.LEFT and f2 == Facing.RIGHT)
+		or (f1 == Facing.RIGHT and f2 == Facing.LEFT)
+	)
