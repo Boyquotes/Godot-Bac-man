@@ -1,6 +1,9 @@
 extends TileMap
 
 
+signal scene_clear
+
+
 export var player_start = Vector2(0,0)
 export var enemy_start = Vector2(0,0)
 
@@ -8,6 +11,7 @@ onready var cell_offset = 0.5 * cell_size * Vector2.ONE
 onready var astar = AStar2D.new()
 onready var map_rect = get_used_rect()
 onready var space_state = get_world_2d().direct_space_state
+onready var pellet_count = get_tree().get_nodes_in_group("pellets").size()
 
 
 func _ready():
@@ -41,3 +45,9 @@ func _on_Enemy_request_path(enemy: Enemy, target: Vector2):
 	var to_id = astar.get_closest_point(target)
 	var path = astar.get_point_path(from_id, to_id)
 	enemy.set("nav_path", path)
+
+
+func decrement_pellet_count():
+	pellet_count -= 1
+	if pellet_count <= 0:
+		emit_signal("scene_clear")
