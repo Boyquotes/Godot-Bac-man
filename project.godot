@@ -36,6 +36,10 @@ config/name="Bac-man (Pac-man clone)"
 run/main_scene="res://TitleScreen.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://Global.gd"
+
 [display]
 
 window/size/width=400
