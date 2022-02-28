@@ -1,14 +1,10 @@
 extends CanvasLayer
 
 
-signal leave_title
+signal scene_clear
 
 
-var pellet_count = 0
-
-
-func _ready():
-	pellet_count = get_tree().get_nodes_in_group("pellets").size()
+onready var pellet_count = get_tree().get_nodes_in_group("pellets").size()
 
 
 func _input(event):
@@ -19,4 +15,4 @@ func _input(event):
 func decrement_pellet_count():
 	pellet_count -= 1
 	if pellet_count <= 0:
-		emit_signal("leave_title")
+		emit_signal("scene_clear")
