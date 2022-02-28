@@ -1,9 +1,6 @@
 extends TileMap
 
 
-signal scene_clear
-
-
 export var player_start = Vector2(0,0)
 export var enemy_start = Vector2(0,0)
 
@@ -50,4 +47,4 @@ func _on_Enemy_request_path(enemy: Enemy, target: Vector2):
 func decrement_pellet_count():
 	pellet_count -= 1
 	if pellet_count <= 0:
-		emit_signal("scene_clear")
+		Global.load_next_scene()

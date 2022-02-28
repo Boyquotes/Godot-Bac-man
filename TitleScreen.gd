@@ -1,9 +1,6 @@
 extends CanvasLayer
 
 
-signal scene_clear
-
-
 onready var pellet_count = get_tree().get_nodes_in_group("pellets").size()
 
 
@@ -15,4 +12,4 @@ func _input(event):
 func decrement_pellet_count():
 	pellet_count -= 1
 	if pellet_count <= 0:
-		emit_signal("scene_clear")
+		Global.load_next_scene()
