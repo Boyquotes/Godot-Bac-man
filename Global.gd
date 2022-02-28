@@ -4,6 +4,7 @@ extends Node
 const scene_order = [
 	"TitleScreen",
 	"levels/level_test",
+	"GameOver",
 ]
 
 var player_lives = 3
@@ -33,3 +34,14 @@ func init_current_scene():
 	current_scene = root.get_child(root.get_child_count() - 1)
 	# warning-ignore: RETURN_VALUE_DISCARDED
 	current_scene.connect("scene_clear", self, "load_next_scene")
+
+
+func end_game():
+	# warning-ignore: RETURN_VALUE_DISCARDED
+	get_tree().change_scene("res://GameOver.tscn")
+	call_deferred("init_current_scene")
+
+
+func reset_game():
+	current_scene_index = -1
+	load_next_scene()

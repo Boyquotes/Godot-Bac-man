@@ -1,5 +1,6 @@
 The following files are copyright Little Robot Sound Factory:
 - Pickup_00.wav
 - Pickup_04.wav
+- Jingle_Lose_00.wav
 
 Attribute Little Robot Sound Factory, and provide this link where possible: www.littlerobotsoundfactory.com
