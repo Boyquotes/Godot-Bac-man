@@ -12,8 +12,7 @@ onready var pellet_count = get_tree().get_nodes_in_group("pellets").size()
 
 
 func _ready():
-	$Player.position = map_to_world(player_start) + cell_offset
-	$Enemy.position = map_to_world(enemy_start) + cell_offset
+	restart()
 	get_tree().call_group("enemies", "set", "player", $Player)
 
 	for x in range(map_rect.position.x, map_rect.end.x):
@@ -33,6 +32,11 @@ func _ready():
 					astar.connect_points(map_to_id(x, y), map_to_id(x, y + 1))
 
 
+func restart():
+	$Player.position = map_to_world(player_start) + cell_offset
+	$Enemy.position = map_to_world(enemy_start) + cell_offset
+
+
 func map_to_id(x, y):
 	return x + map_rect.end.x * y
 
@@ -45,9 +49,8 @@ func _on_Enemy_request_path(enemy: Enemy, target: Vector2):
 
 
 func _on_Player_life_lost():
-	print("oh no! anyway")
-	$Player.position = map_to_world(player_start) + cell_offset
-	$Enemy.position = map_to_world(enemy_start) + cell_offset
+	Global.lose_life()
+	restart()
 
 
 func decrement_pellet_count():

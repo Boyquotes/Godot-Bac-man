@@ -33,3 +33,9 @@ func end_game():
 func reset_game():
 	current_scene_index = -1
 	load_next_scene()
+
+
+func lose_life():
+	player_lives -= 1
+	if player_lives < 0:
+		end_game()
