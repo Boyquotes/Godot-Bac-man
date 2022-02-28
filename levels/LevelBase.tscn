@@ -13,7 +13,6 @@ format = 1
 script = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-collision_layer = 1
 
 [node name="Enemy" parent="." instance=ExtResource( 4 )]
 
