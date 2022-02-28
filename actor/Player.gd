@@ -6,6 +6,7 @@ extends Actor
 signal pickup_pellet
 # warning-ignore: UNUSED_SIGNAL
 signal pickup_big_pellet
+signal life_lost
 
 
 func _unhandled_input(event):
@@ -17,3 +18,10 @@ func _unhandled_input(event):
 		queue_facing(Facing.DOWN)
 	elif event.is_action_pressed("ui_left"):
 		queue_facing(Facing.LEFT)
+
+
+func _on_InteractionArea_area_entered(area : Area2D):
+	# TODO: We can't check Enemy directly (circular dependency) but we can
+	# probably do better than this.
+	if area.owner is Actor:
+		emit_signal("life_lost")

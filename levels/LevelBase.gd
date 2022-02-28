@@ -44,6 +44,12 @@ func _on_Enemy_request_path(enemy: Enemy, target: Vector2):
 	enemy.set("nav_path", path)
 
 
+func _on_Player_life_lost():
+	print("oh no! anyway")
+	$Player.position = map_to_world(player_start) + cell_offset
+	$Enemy.position = map_to_world(enemy_start) + cell_offset
+
+
 func decrement_pellet_count():
 	pellet_count -= 1
 	if pellet_count <= 0:

@@ -15,10 +15,10 @@ const unit_vectors = {
 
 export var speed = 60
 
-var age = 0
 var facing = Facing.NONE setget set_facing
 var queued_facing = Facing.NONE setget queue_facing
 var movement_epsilon = 1
+var damages = false
 
 onready var screen_width = get_viewport_rect().size.x
 onready var screen_height = get_viewport_rect().size.y
