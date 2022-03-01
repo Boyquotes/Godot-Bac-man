@@ -10,26 +10,27 @@ var player : Player
 
 
 func _process(_delta):
-	if nav_path.size() <= 1:
+	if nav_path.size() == 0:
 		emit_signal("request_path", self, player.position)
 		return
 
-	# TODO: Anticipated bug involving enemies getting stuck at narrow gaps,
-	# going back and forth and never trying to turn into them.
-	var facing_ : int
 	var to_point_0 = nav_path[0] - position
-	var to_point_1 = nav_path[1] - position
-	if facing == nearest_facing(to_point_0) and to_point_0.length() < 4: # TODO: Magic number
-		facing_ = nearest_facing(to_point_1)
-	elif facing == nearest_facing(to_point_1) and is_opposite_facing(facing, facing_):
-		facing_ = facing
-		nav_path.remove(0)
-	else:
-		facing_ = nearest_facing(to_point_0)
+	var facing_ = nearest_facing(to_point_0)
 
-	if facing_ != facing:
-		nav_path.remove(0)
-		queue_facing(facing_)
+	if nav_path.size() <= 1:
+		if to_point_0.length() < 16:
+			emit_signal("request_path", self, player.position)
+	else:
+		if to_point_0.length() < 8:
+			nav_path.remove(0)
+		else:
+			var to_point_1 = nav_path[1] - position
+			var facing_1 = nearest_facing(to_point_1)
+			if is_opposite_facing(facing_, facing_1):
+				facing_ = facing_1
+				nav_path.remove(0)
+
+	queue_facing(facing_)
 
 
 func _on_PathTimer_timeout():
