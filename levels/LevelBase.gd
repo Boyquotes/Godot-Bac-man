@@ -37,6 +37,8 @@ func restart():
 	$Player.reset()
 	$Enemy.position = map_loc(enemy_start) + cell_offset
 	$Enemy.reset()
+	get_tree().call_group("actors", "set_physics_process", false)
+	$RestartTimer.start()
 
 
 func map_loc(v : Vector2):
@@ -63,3 +65,7 @@ func decrement_pellet_count():
 	pellet_count -= 1
 	if pellet_count <= 0:
 		Global.load_next_scene()
+
+
+func _on_RestartTimer_timeout():
+	get_tree().call_group("actors", "set_physics_process", true)

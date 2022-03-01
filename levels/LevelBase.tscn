@@ -34,6 +34,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="RestartTimer" type="Timer" parent="."]
+
 [connection signal="life_lost" from="Player" to="." method="_on_Player_life_lost"]
 [connection signal="pickup_pellet" from="Player" to="." method="decrement_pellet_count"]
 [connection signal="request_path" from="Enemy" to="." method="_on_Enemy_request_path"]
+[connection signal="timeout" from="RestartTimer" to="." method="_on_RestartTimer_timeout"]
