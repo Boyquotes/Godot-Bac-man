@@ -60,6 +60,11 @@ func _physics_process(delta):
 		position.y += screen_height
 
 
+func reset():
+	set_facing(Facing.NONE)
+	queue_facing(Facing.NONE)
+
+
 func set_facing(facing_):
 	match facing_:
 		Facing.UP:

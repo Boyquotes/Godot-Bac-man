@@ -34,7 +34,9 @@ func _ready():
 
 func restart():
 	$Player.position = map_loc(player_start) + cell_offset
+	$Player.reset()
 	$Enemy.position = map_loc(enemy_start) + cell_offset
+	$Enemy.reset()
 
 
 func map_loc(v : Vector2):
