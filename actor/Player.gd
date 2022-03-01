@@ -53,7 +53,5 @@ func set_state(state_):
 
 
 func _on_InteractionArea_area_entered(area : Area2D):
-	# TODO: We can't check Enemy directly (circular dependency) but we can
-	# probably do better than this.
-	if area.owner is Actor:
+	if area.owner.is_in_group("enemies"):
 		set_state(State.DEATH)
