@@ -31,6 +31,7 @@ func _process(_delta):
 		nav_path.remove(0)
 		queue_facing(facing_)
 
+
 func _on_PathTimer_timeout():
 	# TODO: We should request a path to where the player is about to go,
 	# lest we get stuck when they're halfway between tiles

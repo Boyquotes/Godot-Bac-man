@@ -2,6 +2,12 @@ class_name Player
 extends Actor
 
 
+enum State {
+	ROAM,
+	DEATH,
+}
+
+
 # warning-ignore: UNUSED_SIGNAL
 signal pickup_pellet
 # warning-ignore: UNUSED_SIGNAL
@@ -9,7 +15,13 @@ signal pickup_big_pellet
 signal life_lost
 
 
+var state = State.ROAM setget set_state
+
+
 func _unhandled_input(event):
+	if state != State.ROAM:
+		return
+
 	if event.is_action_pressed("ui_up"):
 		queue_facing(Facing.UP)
 	elif event.is_action_pressed("ui_right"):
@@ -20,8 +32,30 @@ func _unhandled_input(event):
 		queue_facing(Facing.LEFT)
 
 
+func reset():
+	set_state(State.ROAM)
+	.reset()
+
+
+func set_state(state_):
+	state = state_
+	match state_:
+		State.ROAM:
+			set_physics_process(true)
+			$AnimatedSprite.play("walk")
+			$InteractionArea/CollisionShape2D.set_deferred("disabled", false)
+		State.DEATH:
+			set_physics_process(false)
+			$AnimatedSprite.play("death")
+			$InteractionArea/CollisionShape2D.set_deferred("disabled", true)
+			$DeathSound.play()
+			yield($AnimatedSprite, "animation_finished")
+
+			emit_signal("life_lost")
+
+
 func _on_InteractionArea_area_entered(area : Area2D):
 	# TODO: We can't check Enemy directly (circular dependency) but we can
 	# probably do better than this.
 	if area.owner is Actor:
-		emit_signal("life_lost")
+		set_state(State.DEATH)
