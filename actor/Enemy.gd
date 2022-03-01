@@ -9,10 +9,6 @@ var nav_path : PoolVector2Array = []
 var player : Player
 
 
-func _init():
-	self.damages = true
-
-
 func _process(_delta):
 	if nav_path.size() <= 1:
 		emit_signal("request_path", self, player.position)
