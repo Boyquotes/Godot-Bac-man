@@ -35,9 +35,10 @@ func reset_game():
 
 
 func lose_life():
-	self.player_lives -= 1
-	if player_lives < 0:
+	if player_lives <= 0:
 		end_game()
+	else:
+		self.player_lives -= 1
 
 
 func update_hud():
