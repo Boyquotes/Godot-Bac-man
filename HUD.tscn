@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://resources/tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://assets/player-walk1.png" type="Texture" id=2]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="Border" type="TileMap" parent="."]
+position = Vector2( 8, 0 )
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 0, -1610612736, 131072, 1, 1610612736, 131073, 2, 1610612736, 131073, 3, 1610612736, 131073, 4, 1610612736, 131073, 5, 1610612736, 131073, 6, 1610612736, 131073, 7, 1610612736, 131073, 8, 1610612736, 131073, 9, 1610612736, 131073, 10, 1610612736, 131073, 11, 1610612736, 131072, 65536, 0, 131072, 65537, 0, 131073, 65538, 0, 131073, 65539, 0, 131073, 65540, 0, 131073, 65541, 0, 131073, 65542, 0, 131073, 65543, 0, 131073, 65544, 0, 131073, 65545, 0, 131073, 65546, 0, 131073, 65547, -1073741824, 131072 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Score" type="Label" parent="."]
+margin_left = 64.0
+margin_top = 24.0
+margin_right = 115.0
+margin_bottom = 40.0
+text = "Score: 0"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerIcon" type="Sprite" parent="."]
+position = Vector2( 200, 32 )
+texture = ExtResource( 2 )
+
+[node name="Lives" type="Label" parent="."]
+margin_left = 216.0
+margin_top = 24.0
+margin_right = 265.0
+margin_bottom = 40.0
+text = "×0"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level" type="Label" parent="."]
+margin_left = 296.0
+margin_top = 24.0
+margin_right = 342.0
+margin_bottom = 40.0
+text = "Level 0"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
