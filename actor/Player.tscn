@@ -1,9 +1,18 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://actor/Actor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actor/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/player-walk1.png" type="Texture" id=3]
 [ext_resource path="res://assets/player-walk0.png" type="Texture" id=4]
+[ext_resource path="res://assets/player-death2.png" type="Texture" id=5]
+[ext_resource path="res://assets/player-death4.png" type="Texture" id=6]
+[ext_resource path="res://assets/player-death5.png" type="Texture" id=7]
+[ext_resource path="res://assets/player-death0.png" type="Texture" id=8]
+[ext_resource path="res://assets/player-death1.png" type="Texture" id=9]
+[ext_resource path="res://assets/player-death6.png" type="Texture" id=10]
+[ext_resource path="res://assets/player-death3.png" type="Texture" id=11]
+[ext_resource path="res://assets/player-death7.png" type="Texture" id=12]
+[ext_resource path="res://assets/Pickup_02.wav" type="AudioStream" id=13]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -11,6 +20,11 @@ animations = [ {
 "loop": true,
 "name": "walk",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 5 ), ExtResource( 11 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 10 ), ExtResource( 12 ) ],
+"loop": false,
+"name": "death",
+"speed": 3.0
 } ]
 
 [node name="Player" instance=ExtResource( 1 )]
@@ -23,5 +37,8 @@ animation = "walk"
 [node name="InteractionArea" parent="." index="2"]
 collision_layer = 2
 collision_mask = 8
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="." index="3"]
+stream = ExtResource( 13 )
 
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_InteractionArea_area_entered"]
