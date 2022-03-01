@@ -17,11 +17,11 @@ func _ready():
 
 	for x in range(map_rect.position.x, map_rect.end.x):
 		for y in range(map_rect.position.y, map_rect.end.y):
-			astar.add_point(map_to_id(x, y), $Maze.map_to_world(Vector2(x, y)) + cell_offset)
+			astar.add_point(map_to_id(x, y), map_loc(Vector2(x, y)) + cell_offset)
 
 	for x in range(map_rect.position.x, map_rect.end.x):
 		for y in range(map_rect.position.y, map_rect.end.y):
-			var world_vec = $Maze.map_to_world(Vector2(x, y)) + cell_offset
+			var world_vec = map_loc(Vector2(x, y)) + cell_offset
 			if x < map_rect.end.x - 1:
 				var ray_result = space_state.intersect_ray(world_vec, world_vec + $Maze.cell_size * Vector2.RIGHT, [], 1)
 				if !ray_result:
@@ -33,8 +33,12 @@ func _ready():
 
 
 func restart():
-	$Player.position = $Maze.map_to_world(player_start) + cell_offset
-	$Enemy.position = $Maze.map_to_world(enemy_start) + cell_offset
+	$Player.position = map_loc(player_start) + cell_offset
+	$Enemy.position = map_loc(enemy_start) + cell_offset
+
+
+func map_loc(v : Vector2):
+	return $Maze.to_global($Maze.map_to_world(v))
 
 
 func map_to_id(x, y):
