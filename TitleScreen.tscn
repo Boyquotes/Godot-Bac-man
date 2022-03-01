@@ -36,4 +36,4 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pickup_pellet" from="Player" to="." method="decrement_pellet_count"]
+[connection signal="pickup_collected" from="Player" to="." method="_on_Player_pickup_collected"]

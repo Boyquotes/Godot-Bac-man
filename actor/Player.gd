@@ -9,9 +9,7 @@ enum State {
 
 
 # warning-ignore: UNUSED_SIGNAL
-signal pickup_pellet
-# warning-ignore: UNUSED_SIGNAL
-signal pickup_big_pellet
+signal pickup_collected (type)
 signal life_lost
 
 

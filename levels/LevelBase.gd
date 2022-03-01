@@ -61,11 +61,17 @@ func _on_Player_life_lost():
 	restart()
 
 
-func decrement_pellet_count():
-	pellet_count -= 1
-	if pellet_count <= 0:
-		Global.load_next_scene()
-
-
 func _on_RestartTimer_timeout():
 	get_tree().call_group("actors", "set_physics_process", true)
+
+
+func _on_Player_pickup_collected(type):
+	match type:
+		"pellet":
+			pellet_count -= 1
+			if pellet_count <= 0:
+				Global.load_next_scene()
+		"big_pellet":
+			print("yum yum")
+		_:
+			assert(false, "invalid pickup type")
