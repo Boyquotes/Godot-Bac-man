@@ -1,12 +1,12 @@
-extends TileMap
+extends Node2D
 
 
 export var player_start = Vector2(0,0)
 export var enemy_start = Vector2(0,0)
 
-onready var cell_offset = 0.5 * cell_size * Vector2.ONE
+onready var cell_offset = 0.5 * $Maze.cell_size * Vector2.ONE
 onready var astar = AStar2D.new()
-onready var map_rect = get_used_rect()
+onready var map_rect = $Maze.get_used_rect()
 onready var space_state = get_world_2d().direct_space_state
 onready var pellet_count = get_tree().get_nodes_in_group("pellets").size()
 
@@ -17,24 +17,24 @@ func _ready():
 
 	for x in range(map_rect.position.x, map_rect.end.x):
 		for y in range(map_rect.position.y, map_rect.end.y):
-			astar.add_point(map_to_id(x, y), map_to_world(Vector2(x, y)) + cell_offset)
+			astar.add_point(map_to_id(x, y), $Maze.map_to_world(Vector2(x, y)) + cell_offset)
 
 	for x in range(map_rect.position.x, map_rect.end.x):
 		for y in range(map_rect.position.y, map_rect.end.y):
-			var world_vec = map_to_world(Vector2(x, y)) + cell_offset
+			var world_vec = $Maze.map_to_world(Vector2(x, y)) + cell_offset
 			if x < map_rect.end.x - 1:
-				var ray_result = space_state.intersect_ray(world_vec, world_vec + cell_size * Vector2.RIGHT, [], 1)
+				var ray_result = space_state.intersect_ray(world_vec, world_vec + $Maze.cell_size * Vector2.RIGHT, [], 1)
 				if !ray_result:
 					astar.connect_points(map_to_id(x, y), map_to_id(x + 1, y))
 			if y < map_rect.end.y - 1:
-				var ray_result = space_state.intersect_ray(world_vec, world_vec + cell_size * Vector2.DOWN, [], 1)
+				var ray_result = space_state.intersect_ray(world_vec, world_vec + $Maze.cell_size * Vector2.DOWN, [], 1)
 				if !ray_result:
 					astar.connect_points(map_to_id(x, y), map_to_id(x, y + 1))
 
 
 func restart():
-	$Player.position = map_to_world(player_start) + cell_offset
-	$Enemy.position = map_to_world(enemy_start) + cell_offset
+	$Player.position = $Maze.map_to_world(player_start) + cell_offset
+	$Enemy.position = $Maze.map_to_world(enemy_start) + cell_offset
 
 
 func map_to_id(x, y):
