@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://resources/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/player-walk1.png" type="Texture" id=2]
+[ext_resource path="res://HUD.gd" type="Script" id=3]
 
-[node name="HUD" type="CanvasLayer"]
+[node name="HUD" type="CanvasLayer" groups=[
+"HUD",
+]]
+script = ExtResource( 3 )
 
 [node name="Border" type="TileMap" parent="."]
 position = Vector2( 8, 0 )

@@ -7,8 +7,8 @@ const scene_order = [
 	"GameOver",
 ]
 
-var player_lives = 3
-var score = 0
+var player_lives = 3 setget set_player_lives
+var score = 0 setget set_score
 var current_scene_index = 0
 
 onready var root = get_tree().get_root()
@@ -27,7 +27,6 @@ func load_next_scene():
 func end_game():
 	# warning-ignore: RETURN_VALUE_DISCARDED
 	get_tree().change_scene("res://GameOver.tscn")
-	call_deferred("init_current_scene")
 
 
 func reset_game():
@@ -36,6 +35,20 @@ func reset_game():
 
 
 func lose_life():
-	player_lives -= 1
+	self.player_lives -= 1
 	if player_lives < 0:
 		end_game()
+
+
+func update_hud():
+	get_tree().call_group("HUD", "update_label_text")
+
+
+func set_score(score_):
+	score = score_
+	update_hud()
+
+
+func set_player_lives(lives_):
+	player_lives = lives_
+	update_hud()
