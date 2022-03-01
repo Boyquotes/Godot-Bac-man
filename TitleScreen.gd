@@ -12,4 +12,4 @@ func _input(event):
 func _on_Player_pickup_collected(_type):
 	pellet_count -= 1
 	if pellet_count <= 0:
-		Global.load_next_scene()
+		Global.notify_event(Global.SCENE_CLEAR)

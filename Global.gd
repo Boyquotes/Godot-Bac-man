@@ -1,6 +1,13 @@
 extends Node
 
 
+enum {
+	PELLET_COLLECTED,
+	BIG_PELLET_COLLECTED,
+	LIFE_LOST,
+	SCENE_CLEAR,
+}
+
 const scene_order = [
 	"TitleScreen",
 	"levels/level_test",
@@ -10,6 +17,9 @@ const scene_order = [
 var player_lives = 3 setget set_player_lives
 var score = 0 setget set_score
 var current_scene_index = 0
+
+export var pellet_score = 10
+export var big_pellet_score = 100
 
 onready var root = get_tree().get_root()
 
@@ -39,6 +49,20 @@ func lose_life():
 		end_game()
 	else:
 		self.player_lives -= 1
+
+
+func notify_event(event : int):
+	match event:
+		PELLET_COLLECTED:
+			set_score(score + pellet_score)
+		BIG_PELLET_COLLECTED:
+			set_score(score + big_pellet_score)
+		LIFE_LOST:
+			lose_life()
+		SCENE_CLEAR:
+			load_next_scene()
+		_:
+			assert(false, "invalid event: %s" % event)
 
 
 func update_hud():

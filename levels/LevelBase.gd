@@ -57,7 +57,7 @@ func _on_Enemy_request_path(enemy: Enemy, target: Vector2):
 
 
 func _on_Player_life_lost():
-	Global.lose_life()
+	Global.notify_event(Global.LIFE_LOST)
 	restart()
 
 
@@ -68,10 +68,11 @@ func _on_RestartTimer_timeout():
 func _on_Player_pickup_collected(type):
 	match type:
 		"pellet":
+			Global.notify_event(Global.PELLET_COLLECTED)
 			pellet_count -= 1
 			if pellet_count <= 0:
-				Global.load_next_scene()
+				Global.notify_event(Global.SCENE_CLEAR)
 		"big_pellet":
-			print("yum yum")
+			Global.notify_event(Global.BIG_PELLET_COLLECTED)
 		_:
-			assert(false, "invalid pickup type")
+			assert(false, "invalid pickup type: %s" % type)
