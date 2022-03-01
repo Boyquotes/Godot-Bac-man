@@ -35,6 +35,7 @@ __meta__ = {
 }
 
 [node name="RestartTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="life_lost" from="Player" to="." method="_on_Player_life_lost"]
 [connection signal="pickup_collected" from="Player" to="." method="_on_Player_pickup_collected"]
