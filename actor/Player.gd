@@ -14,6 +14,7 @@ enum State {
 signal pickup_collected (type)
 signal life_lost
 signal powerup_timedout
+signal entered_enemy (enemy)
 
 
 var state = State.ROAMING setget set_state
@@ -24,7 +25,7 @@ export var speed_powerup = 80
 
 
 func _unhandled_input(event):
-	if state != State.ROAMING:
+	if state == State.WAITING:
 		return
 
 	if event.is_action_pressed("ui_up"):
@@ -71,8 +72,16 @@ func set_state(state_):
 
 
 func _on_InteractionArea_area_entered(area : Area2D):
-	if area.owner.is_in_group("enemies"):
-		set_state(State.DYING)
+	if not area.owner.is_in_group("enemies"):
+		return
+
+	match state:
+		State.WAITING, State.DYING:
+			pass
+		State.ROAMING:
+			set_state(State.DYING)
+		State.POWERUP:
+			emit_signal("entered_enemy", area.owner)
 
 
 func _on_PowerupTimer_timeout():

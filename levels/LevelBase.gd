@@ -100,3 +100,12 @@ func _on_Player_pickup_collected(type):
 
 func _on_Player_powerup_timedout():
 	emit_signal("player_powered_down")
+
+
+func _on_Player_entered_enemy(enemy):
+	match enemy.state:
+		Enemy.State.EATEN:
+			pass
+		_:
+			Global.notify_event(Global.ENEMY_EATEN)
+			enemy.set_state(Enemy.State.EATEN)

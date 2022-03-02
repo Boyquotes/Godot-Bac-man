@@ -4,6 +4,7 @@ extends Node
 enum {
 	PELLET_COLLECTED,
 	BIG_PELLET_COLLECTED,
+	ENEMY_EATEN,
 	LIFE_LOST,
 	SCENE_CLEAR,
 }
@@ -20,6 +21,7 @@ var current_scene_index = 0
 
 export var pellet_score = 10
 export var big_pellet_score = 100
+export var enemy_eaten_score = 200
 
 onready var root = get_tree().get_root()
 
@@ -57,6 +59,8 @@ func notify_event(event : int):
 			set_score(score + pellet_score)
 		BIG_PELLET_COLLECTED:
 			set_score(score + big_pellet_score)
+		ENEMY_EATEN:
+			set_score(score + enemy_eaten_score)
 		LIFE_LOST:
 			lose_life()
 		SCENE_CLEAR:

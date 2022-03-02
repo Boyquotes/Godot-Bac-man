@@ -6,6 +6,7 @@ enum State {
 	WAITING,
 	ROAMING,
 	FLEEING,
+	EATEN,
 }
 
 
@@ -19,11 +20,13 @@ var state = State.ROAMING setget set_state
 onready var speed_roam = speed
 
 export var speed_fleeing = 40
+export var speed_eaten = 100
+export var home := Vector2(0, 0)
 
 
 func _process(_delta):
 	if nav_path.size() == 0:
-		emit_signal("request_path", self, player.position)
+		request_new_path()
 		return
 
 	var to_point_0 = nav_path[0] - position
@@ -31,7 +34,7 @@ func _process(_delta):
 
 	if nav_path.size() <= 1:
 		if to_point_0.length() < 16:
-			emit_signal("request_path", self, player.position)
+			request_new_path()
 	else:
 		if to_point_0.length() < 8:
 			nav_path.remove(0)
@@ -43,6 +46,19 @@ func _process(_delta):
 				nav_path.remove(0)
 
 	queue_facing(facing_)
+
+
+func request_new_path():
+	var target := position
+	match state:
+		State.WAITING, State.ROAMING:
+			target = player.position
+		State.FLEEING:
+			target = Vector2(50, 50)
+		State.EATEN:
+			target = home
+
+	emit_signal("request_path", self, target)
 
 
 func reset():
@@ -60,6 +76,7 @@ func turn_down():
 
 func set_state(state_):
 	state = state_
+	request_new_path()
 	match state_:
 		State.WAITING:
 			speed = 0
@@ -70,12 +87,10 @@ func set_state(state_):
 		State.FLEEING:
 			speed = speed_fleeing
 			$AnimatedSprite.play("flee")
-
-
-func _on_PathTimer_timeout():
-	# TODO: We should request a path to where the player is about to go,
-	# lest we get stuck when they're halfway between tiles
-	emit_signal("request_path", self, player.position)
+		State.EATEN:
+			speed = speed_eaten
+			$EatenSound.play()
+			$AnimatedSprite.play("eaten")
 
 
 func _on_player_spawned(player_):
