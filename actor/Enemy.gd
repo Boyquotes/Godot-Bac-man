@@ -4,6 +4,7 @@ extends Actor
 
 enum State {
 	WAITING,
+	IDLING,
 	ROAMING,
 	FLEEING,
 	EATEN,
@@ -20,11 +21,33 @@ var state = State.ROAMING setget set_state
 onready var speed_roaming = speed
 onready var home = position
 
+export var speed_idling = 40
 export var speed_fleeing = 40
 export var speed_eaten = 100
 
 
 func _process(_delta):
+	if is_following_path():
+		follow_path()
+	else:
+		match state:
+			State.WAITING:
+				pass
+			State.IDLING:
+				idle_around()
+			_:
+				assert(false, "invalid state not following_path: %d" % state)
+
+
+func is_following_path():
+	return (
+			state == State.ROAMING
+			or state == State.FLEEING
+			or state == State.EATEN
+	)
+
+
+func follow_path():
 	if nav_path.size() == 0:
 		request_new_path()
 		return
@@ -48,15 +71,37 @@ func _process(_delta):
 	queue_facing(facing_)
 
 
+func idle_around():
+	if facing == Facing.NONE:
+		for f in [Facing.LEFT, Facing.DOWN, Facing.RIGHT, Facing.UP]:
+			if can_move_in(f):
+				queue_facing(f)
+				return
+	else:
+		if can_move_in(facing):
+			return
+		elif can_move_in(get_left_facing(facing)):
+			queue_facing(get_left_facing(facing))
+		elif can_move_in(get_right_facing(facing)):
+			queue_facing(get_right_facing(facing))
+		else:
+			queue_facing(get_left_facing(get_left_facing(facing)))
+
+
 func request_new_path():
+	if not is_following_path():
+		return
+
 	var target := position
 	match state:
-		State.WAITING, State.ROAMING:
+		State.ROAMING:
 			target = player.position
 		State.FLEEING:
 			target = Vector2(50, 50)
 		State.EATEN:
 			target = home
+		_:
+			assert(false, "invalid state for request_new_path: %d" % state)
 
 	emit_signal("request_path", self, target)
 
@@ -82,6 +127,10 @@ func set_state(state_):
 		State.WAITING:
 			speed = 0
 			$AnimatedSprite.play("walk")
+		State.IDLING:
+			speed = speed_idling
+			$IdlingTimer.start()
+			$AnimatedSprite.play("walk")
 		State.ROAMING:
 			speed = speed_roaming
 			$AnimatedSprite.play("walk")
@@ -92,6 +141,8 @@ func set_state(state_):
 			speed = speed_eaten
 			$EatenSound.play()
 			$AnimatedSprite.play("eaten")
+		_:
+			assert(false, "unhandled state change to %d" % state_)
 
 
 func _on_player_spawned(player_):
@@ -105,3 +156,8 @@ func _on_player_powered_up():
 
 func _on_player_powered_down():
 	set_state(State.ROAMING)
+
+
+func _on_IdlingTimer_timeout():
+	if state == State.IDLING:
+		set_state(State.ROAMING)

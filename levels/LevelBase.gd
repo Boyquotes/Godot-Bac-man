@@ -75,7 +75,7 @@ func _on_Player_life_lost():
 func _on_RestartTimer_timeout():
 	$Player.set_state(Player.State.ROAMING)
 	for e in get_tree().get_nodes_in_group("enemies"):
-		e.set_state(Enemy.State.ROAMING)
+		e.set_state(Enemy.State.IDLING)
 
 
 func _on_Player_pickup_collected(type):

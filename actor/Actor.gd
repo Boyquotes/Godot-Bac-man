@@ -29,8 +29,7 @@ func _physics_process(delta):
 	var velocity = frame_speed * unit_vectors[queued_facing]
 
 	if facing != queued_facing:
-		var collision = move_and_collide(velocity, true, true, true) # test_only true
-		if collision and collision.travel.length() <= movement_epsilon:
+		if not can_move_in(queued_facing):
 			# We're flush against a wall; check if we can turn soon
 			# TODO: un-hardcode the 8s
 			var corner = position + 8 * unit_vectors[facing] + 8 * unit_vectors[queued_facing]
@@ -109,6 +108,15 @@ func turn_down():
 	$AnimatedSprite.flip_h = false
 
 
+func can_move_in(direction : int) -> bool:
+	if direction == Facing.NONE:
+		return false
+	else:
+		var velocity = unit_vectors[direction] * movement_epsilon
+		var collision = move_and_collide(velocity, true, true, true) # test_only true
+		return not collision
+
+
 func nearest_facing(vec: Vector2):
 	if abs(vec.x) >= abs(vec.y):
 		if vec.x >= 0:
@@ -129,3 +137,21 @@ func is_opposite_facing(f1, f2):
 		or (f1 == Facing.LEFT and f2 == Facing.RIGHT)
 		or (f1 == Facing.RIGHT and f2 == Facing.LEFT)
 	)
+
+
+func get_left_facing(facing_ : int) -> int:
+	match facing_:
+		Facing.UP:
+			return Facing.LEFT
+		Facing.LEFT:
+			return Facing.DOWN
+		Facing.DOWN:
+			return Facing.RIGHT
+		Facing.RIGHT:
+			return Facing.UP
+		_:
+			return Facing.LEFT
+
+
+func get_right_facing(facing_ : int) -> int:
+	return get_left_facing(get_left_facing(get_left_facing(facing_)))
