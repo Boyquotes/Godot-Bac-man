@@ -16,10 +16,11 @@ signal request_path (self_, target_position)
 
 var nav_path : PoolVector2Array = []
 var player : Player
+var home_area : Area2D
 var state = State.ROAMING setget set_state
 
 onready var speed_roaming = speed
-onready var home = position
+onready var home = position # TODO: home_area.position?
 
 export var speed_idling = 40
 export var speed_fleeing = 40
@@ -45,6 +46,10 @@ func is_following_path():
 			or state == State.FLEEING
 			or state == State.EATEN
 	)
+
+
+func is_at_home():
+	return $InteractionArea.overlaps_area(home_area)
 
 
 func follow_path():
@@ -149,15 +154,25 @@ func _on_player_spawned(player_):
 	player = player_
 
 
+func _on_enemy_home_ready(home_area_):
+	home_area = home_area_
+
+
 func _on_player_powered_up():
-	if state != State.EATEN:
+	if not is_at_home() and state != State.EATEN:
 		set_state(State.FLEEING)
 
 
 func _on_player_powered_down():
-	set_state(State.ROAMING)
+	if not is_at_home() and state != State.EATEN:
+		set_state(State.ROAMING)
 
 
 func _on_IdlingTimer_timeout():
 	if state == State.IDLING:
 		set_state(State.ROAMING)
+
+
+func _on_InteractionArea_area_entered(area : Area2D):
+	if area == home_area and state == State.EATEN:
+		set_state(State.IDLING)

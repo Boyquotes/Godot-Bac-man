@@ -40,6 +40,15 @@ __meta__ = {
 [node name="RestartTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="EnemyHome" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHome"]
+__meta__ = {
+"_edit_lock_": true
+}
+
 [connection signal="entered_enemy" from="Player" to="." method="_on_Player_entered_enemy"]
 [connection signal="life_lost" from="Player" to="." method="_on_Player_life_lost"]
 [connection signal="pickup_collected" from="Player" to="." method="_on_Player_pickup_collected"]

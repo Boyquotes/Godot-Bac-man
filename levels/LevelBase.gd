@@ -2,6 +2,7 @@ extends Node2D
 
 
 signal player_spawned (player)
+signal enemy_home_ready (home)
 signal player_powered_up
 signal player_powered_down
 
@@ -16,6 +17,7 @@ onready var pellet_count = get_tree().get_nodes_in_group("pellets").size()
 func _ready():
 	connect_signals()
 	emit_signal("player_spawned", $Player)
+	emit_signal("enemy_home_ready", $EnemyHome)
 	restart()
 
 	for x in range(map_rect.position.x, map_rect.end.x):
@@ -39,6 +41,8 @@ func connect_signals():
 	for e in get_tree().get_nodes_in_group("enemies"):
 		# warning-ignore: RETURN_VALUE_DISCARDED
 		connect("player_spawned", e, "_on_player_spawned")
+		# warning-ignore: RETURN_VALUE_DISCARDED
+		connect("enemy_home_ready", e, "_on_enemy_home_ready")
 		# warning-ignore: RETURN_VALUE_DISCARDED
 		connect("player_powered_up", e, "_on_player_powered_up")
 		# warning-ignore: RETURN_VALUE_DISCARDED
