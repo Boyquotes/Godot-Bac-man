@@ -1,6 +1,11 @@
 extends Node2D
 
 
+signal player_spawned (player)
+signal player_powered_up
+signal player_powered_down
+
+
 export var player_start = Vector2(0,0)
 export var enemy_start = Vector2(0,0)
 
@@ -12,8 +17,9 @@ onready var pellet_count = get_tree().get_nodes_in_group("pellets").size()
 
 
 func _ready():
+	connect_signals()
+	emit_signal("player_spawned", $Player)
 	restart()
-	get_tree().call_group("enemies", "set", "player", $Player)
 
 	for x in range(map_rect.position.x, map_rect.end.x):
 		for y in range(map_rect.position.y, map_rect.end.y):
@@ -32,12 +38,22 @@ func _ready():
 					astar.connect_points(map_to_id(x, y), map_to_id(x, y + 1))
 
 
+func connect_signals():
+	for e in get_tree().get_nodes_in_group("enemies"):
+		# warning-ignore: RETURN_VALUE_DISCARDED
+		connect("player_spawned", e, "_on_player_spawned")
+		# warning-ignore: RETURN_VALUE_DISCARDED
+		connect("player_powered_up", e, "_on_player_powered_up")
+		# warning-ignore: RETURN_VALUE_DISCARDED
+		connect("player_powered_down", e, "_on_player_powered_down")
+
+
 func restart():
 	$Player.position = map_loc(player_start) + cell_offset
 	$Player.reset()
-	$Enemy.position = map_loc(enemy_start) + cell_offset
-	$Enemy.reset()
-	get_tree().call_group("actors", "set_physics_process", false)
+	for e in get_tree().get_nodes_in_group("enemies"):
+		e.position = map_loc(enemy_start) + cell_offset
+		e.reset()
 	$RestartTimer.start()
 
 
@@ -62,7 +78,9 @@ func _on_Player_life_lost():
 
 
 func _on_RestartTimer_timeout():
-	get_tree().call_group("actors", "set_physics_process", true)
+	$Player.set_state(Player.State.ROAMING)
+	for e in get_tree().get_nodes_in_group("enemies"):
+		e.set_state(Enemy.State.ROAMING)
 
 
 func _on_Player_pickup_collected(type):
@@ -74,5 +92,11 @@ func _on_Player_pickup_collected(type):
 				Global.notify_event(Global.SCENE_CLEAR)
 		"big_pellet":
 			Global.notify_event(Global.BIG_PELLET_COLLECTED)
+			$Player.set_state(Player.State.POWERUP)
+			emit_signal("player_powered_up")
 		_:
 			assert(false, "invalid pickup type: %s" % type)
+
+
+func _on_Player_powerup_timedout():
+	emit_signal("player_powered_down")

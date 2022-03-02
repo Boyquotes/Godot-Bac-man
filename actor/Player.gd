@@ -3,21 +3,28 @@ extends Actor
 
 
 enum State {
-	ROAM,
-	DEATH,
+	WAITING,
+	ROAMING,
+	DYING,
+	POWERUP,
 }
 
 
 # warning-ignore: UNUSED_SIGNAL
 signal pickup_collected (type)
 signal life_lost
+signal powerup_timedout
 
 
-var state = State.ROAM setget set_state
+var state = State.ROAMING setget set_state
+
+onready var speed_roam = speed
+
+export var speed_powerup = 80
 
 
 func _unhandled_input(event):
-	if state != State.ROAM:
+	if state != State.ROAMING:
 		return
 
 	if event.is_action_pressed("ui_up"):
@@ -31,27 +38,43 @@ func _unhandled_input(event):
 
 
 func reset():
-	set_state(State.ROAM)
+	set_state(State.WAITING)
 	.reset()
 
 
 func set_state(state_):
 	state = state_
+	# TODO: match state first, then state_, to undo previous changes separately
 	match state_:
-		State.ROAM:
-			set_physics_process(true)
+		State.WAITING:
+			speed = 0
+			$PowerupTimer.stop()
+			$AnimatedSprite.play("walk")
+		State.ROAMING:
+			speed = speed_roam
+			$PowerupTimer.stop()
 			$AnimatedSprite.play("walk")
 			$InteractionArea/CollisionShape2D.set_deferred("disabled", false)
-		State.DEATH:
-			set_physics_process(false)
+		State.DYING:
+			speed = 0
+			$PowerupTimer.stop()
 			$AnimatedSprite.play("death")
 			$InteractionArea/CollisionShape2D.set_deferred("disabled", true)
 			$DeathSound.play()
 			yield($AnimatedSprite, "animation_finished")
 
 			emit_signal("life_lost")
+		State.POWERUP:
+			speed = speed_powerup
+			$AnimatedSprite.play("powerup")
+			$InteractionArea/CollisionShape2D.set_deferred("disabled", false)
 
 
 func _on_InteractionArea_area_entered(area : Area2D):
 	if area.owner.is_in_group("enemies"):
-		set_state(State.DEATH)
+		set_state(State.DYING)
+
+
+func _on_PowerupTimer_timeout():
+	set_state(State.ROAMING)
+	emit_signal("powerup_timedout")
