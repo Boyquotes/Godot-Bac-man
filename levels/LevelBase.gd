@@ -6,9 +6,6 @@ signal player_powered_up
 signal player_powered_down
 
 
-export var player_start = Vector2(0,0)
-export var enemy_start = Vector2(0,0)
-
 onready var cell_offset = 0.5 * $Maze.cell_size * Vector2.ONE
 onready var astar = AStar2D.new()
 onready var map_rect = $Maze.get_used_rect()
@@ -49,10 +46,8 @@ func connect_signals():
 
 
 func restart():
-	$Player.position = map_loc(player_start) + cell_offset
 	$Player.reset()
 	for e in get_tree().get_nodes_in_group("enemies"):
-		e.position = map_loc(enemy_start) + cell_offset
 		e.reset()
 	$RestartTimer.start()
 

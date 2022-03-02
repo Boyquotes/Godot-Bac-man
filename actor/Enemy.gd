@@ -18,10 +18,10 @@ var player : Player
 var state = State.ROAMING setget set_state
 
 onready var speed_roaming = speed
+onready var home = position
 
 export var speed_fleeing = 40
 export var speed_eaten = 100
-export var home := Vector2(0, 0)
 
 
 func _process(_delta):
@@ -63,6 +63,7 @@ func request_new_path():
 
 func reset():
 	set_state(State.WAITING)
+	position = home
 	.reset()
 
 

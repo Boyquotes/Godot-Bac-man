@@ -20,6 +20,7 @@ signal entered_enemy (enemy)
 var state = State.ROAMING setget set_state
 
 onready var speed_roaming = speed
+onready var home = position
 
 export var speed_powerup = 80
 
@@ -40,6 +41,7 @@ func _unhandled_input(event):
 
 func reset():
 	set_state(State.WAITING)
+	position = home
 	.reset()
 
 
