@@ -98,7 +98,8 @@ func _on_player_spawned(player_):
 
 
 func _on_player_powered_up():
-	set_state(State.FLEEING)
+	if state != State.EATEN:
+		set_state(State.FLEEING)
 
 
 func _on_player_powered_down():
