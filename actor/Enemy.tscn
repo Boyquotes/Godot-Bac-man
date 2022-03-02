@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://actor/Actor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actor/Enemy.gd" type="Script" id=2]
@@ -10,12 +10,25 @@
 [ext_resource path="res://assets/gost-walk1.png" type="Texture" id=8]
 [ext_resource path="res://assets/gost-walk7.png" type="Texture" id=9]
 [ext_resource path="res://assets/gost-walk3.png" type="Texture" id=10]
+[ext_resource path="res://assets/gost-flee5.png" type="Texture" id=11]
+[ext_resource path="res://assets/gost-flee0.png" type="Texture" id=12]
+[ext_resource path="res://assets/gost-flee3.png" type="Texture" id=13]
+[ext_resource path="res://assets/gost-flee4.png" type="Texture" id=14]
+[ext_resource path="res://assets/gost-flee2.png" type="Texture" id=15]
+[ext_resource path="res://assets/gost-flee1.png" type="Texture" id=16]
+[ext_resource path="res://assets/gost-flee6.png" type="Texture" id=17]
+[ext_resource path="res://assets/gost-flee7.png" type="Texture" id=18]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 10 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "walk",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 17 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "flee",
 "speed": 12.0
 } ]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://actor/Actor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actor/Player.gd" type="Script" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://assets/player-death3.png" type="Texture" id=11]
 [ext_resource path="res://assets/player-death7.png" type="Texture" id=12]
 [ext_resource path="res://assets/Pickup_02.wav" type="AudioStream" id=13]
+[ext_resource path="res://assets/player-power3.png" type="Texture" id=14]
+[ext_resource path="res://assets/player-power2.png" type="Texture" id=15]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -20,6 +22,11 @@ animations = [ {
 "loop": true,
 "name": "walk",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 15 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "powerup",
+"speed": 8.0
 }, {
 "frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 5 ), ExtResource( 11 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 10 ), ExtResource( 12 ) ],
 "loop": false,
