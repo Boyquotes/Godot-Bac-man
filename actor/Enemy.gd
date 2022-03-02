@@ -17,7 +17,7 @@ var nav_path : PoolVector2Array = []
 var player : Player
 var state = State.ROAMING setget set_state
 
-onready var speed_roam = speed
+onready var speed_roaming = speed
 
 export var speed_fleeing = 40
 export var speed_eaten = 100
@@ -82,7 +82,7 @@ func set_state(state_):
 			speed = 0
 			$AnimatedSprite.play("walk")
 		State.ROAMING:
-			speed = speed_roam
+			speed = speed_roaming
 			$AnimatedSprite.play("walk")
 		State.FLEEING:
 			speed = speed_fleeing

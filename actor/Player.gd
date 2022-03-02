@@ -19,7 +19,7 @@ signal entered_enemy (enemy)
 
 var state = State.ROAMING setget set_state
 
-onready var speed_roam = speed
+onready var speed_roaming = speed
 
 export var speed_powerup = 80
 
@@ -52,7 +52,7 @@ func set_state(state_):
 			$PowerupTimer.stop()
 			$AnimatedSprite.play("walk")
 		State.ROAMING:
-			speed = speed_roam
+			speed = speed_roaming
 			$PowerupTimer.stop()
 			$AnimatedSprite.play("walk")
 			$InteractionArea/CollisionShape2D.set_deferred("disabled", false)
@@ -67,6 +67,7 @@ func set_state(state_):
 			emit_signal("life_lost")
 		State.POWERUP:
 			speed = speed_powerup
+			$PowerupTimer.start()
 			$AnimatedSprite.play("powerup")
 			$InteractionArea/CollisionShape2D.set_deferred("disabled", false)
 
