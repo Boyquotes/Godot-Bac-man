@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resources/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://actor/Player.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://actor/Enemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=5]
 [ext_resource path="res://AntiPlayerWall.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actor/ai_chase.gd" type="Script" id=7]
 
 [node name="LevelBase" type="Node2D"]
 script = ExtResource( 3 )
@@ -24,6 +25,7 @@ format = 1
 [node name="Player" parent="." instance=ExtResource( 2 )]
 
 [node name="Enemy" parent="." instance=ExtResource( 4 )]
+roam_ai = ExtResource( 7 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1

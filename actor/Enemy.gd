@@ -21,10 +21,12 @@ var state = State.ROAMING setget set_state
 
 onready var speed_roaming = speed
 onready var home = position # TODO: home_area.position?
+onready var AI = roam_ai.new()
 
 export var speed_idling = 40
 export var speed_fleeing = 40
 export var speed_eaten = 100
+export var roam_ai : Script
 
 
 func _process(_delta):
@@ -100,7 +102,7 @@ func request_new_path():
 	var target := position
 	match state:
 		State.ROAMING:
-			target = player.position
+			target = AI.pick_target(self)
 		State.FLEEING:
 			target = Vector2(50, 50)
 		State.EATEN:
