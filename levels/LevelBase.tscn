@@ -24,7 +24,7 @@ format = 1
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 
-[node name="Enemy" parent="." instance=ExtResource( 4 )]
+[node name="Enemy1" parent="." instance=ExtResource( 4 )]
 roam_ai = ExtResource( 7 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -55,5 +55,4 @@ __meta__ = {
 [connection signal="life_lost" from="Player" to="." method="_on_Player_life_lost"]
 [connection signal="pickup_collected" from="Player" to="." method="_on_Player_pickup_collected"]
 [connection signal="powerup_timedout" from="Player" to="." method="_on_Player_powerup_timedout"]
-[connection signal="request_path" from="Enemy" to="." method="_on_Enemy_request_path"]
 [connection signal="timeout" from="RestartTimer" to="." method="_on_RestartTimer_timeout"]

@@ -47,6 +47,8 @@ func connect_signals():
 		connect("player_powered_up", e, "_on_player_powered_up")
 		# warning-ignore: RETURN_VALUE_DISCARDED
 		connect("player_powered_down", e, "_on_player_powered_down")
+		# warning-ignore: RETURN_VALUE_DISCARDED
+		e.connect("request_path", self, "_on_Enemy_request_path")
 
 
 func restart():

@@ -177,7 +177,7 @@ position = Vector2( 144, 64 )
 [node name="Player" parent="." index="3"]
 position = Vector2( 24, 88 )
 
-[node name="Enemy" parent="." index="4"]
+[node name="Enemy1" parent="." index="4"]
 position = Vector2( 88, 248 )
 
 [node name="EnemyHome" parent="." index="7"]
