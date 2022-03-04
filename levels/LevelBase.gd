@@ -7,11 +7,11 @@ signal player_powered_up
 signal player_powered_down
 
 
-onready var cell_offset = 0.5 * $Maze.cell_size * Vector2.ONE
-onready var astar = AStar2D.new()
-onready var map_rect = $Maze.get_used_rect()
-onready var space_state = get_world_2d().direct_space_state
-onready var pellet_count = get_tree().get_nodes_in_group("pellets").size()
+onready var cell_offset : Vector2 = 0.5 * $Maze.cell_size * Vector2.ONE
+onready var astar := AStar2D.new()
+onready var map_rect : Rect2 = $Maze.get_used_rect()
+onready var space_state := get_world_2d().direct_space_state
+onready var pellet_count := get_tree().get_nodes_in_group("pellets").size()
 
 
 func _ready():
@@ -20,6 +20,7 @@ func _ready():
 	emit_signal("enemy_home_ready", $EnemyHome)
 	restart()
 
+	astar.reserve_space(int(map_rect.size.x * map_rect.size.y))
 	for x in range(map_rect.position.x, map_rect.end.x):
 		for y in range(map_rect.position.y, map_rect.end.y):
 			astar.add_point(map_to_id(x, y), map_loc(Vector2(x, y)) + cell_offset)
