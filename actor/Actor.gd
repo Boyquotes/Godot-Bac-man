@@ -30,15 +30,25 @@ func _physics_process(delta):
 
 	if facing != queued_facing:
 		if not can_move_in(queued_facing):
+			velocity = frame_speed * unit_vectors[facing]
 			# We're flush against a wall; check if we can turn soon
 			# TODO: un-hardcode the 8s
 			var corner = position + 8 * unit_vectors[facing] + 8 * unit_vectors[queued_facing]
+			var off_corner = corner + 2 * unit_vectors[queued_facing]
 			# collision_layer: walls only
-			var ray_result = space_state.intersect_ray(corner, corner + velocity, [], 1)
+			var ray_result = space_state.intersect_ray(corner, off_corner, [], 1)
 			if ray_result:
 				# We're nowhere near a turn - flush the queued turn
 				queue_facing(facing)
-			velocity = frame_speed * unit_vectors[facing]
+			else:
+				# We may have to brake to make it into the turn.
+				var ray_2 = space_state.intersect_ray(off_corner, off_corner + velocity, [], 1)
+				if ray_2:
+					var max_move = off_corner.distance_to(ray_2.position)
+					# Seemingly inconsistent ray collision can cause max_move == 0,
+					# leading the actor to get stuck far away from a turn
+					if max_move > 0:
+						velocity = velocity.clamped(max_move)
 		else:
 			# We can turn to the queued_facing
 			set_facing(queued_facing)
@@ -110,7 +120,7 @@ func turn_down():
 
 func can_move_in(direction : int) -> bool:
 	if direction == Facing.NONE:
-		return false
+		return false # true?
 	else:
 		var velocity = unit_vectors[direction] * movement_epsilon
 		var collision = move_and_collide(velocity, true, true, true) # test_only true
