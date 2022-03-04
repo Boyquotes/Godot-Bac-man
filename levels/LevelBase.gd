@@ -3,7 +3,6 @@ extends Node2D
 
 signal player_spawned (player)
 signal enemy_home_ready (home)
-signal maze_ready (maze_bounds)
 signal player_powered_up
 signal player_powered_down
 
@@ -19,10 +18,6 @@ func _ready():
 	connect_signals()
 	emit_signal("player_spawned", $Player)
 	emit_signal("enemy_home_ready", $EnemyHome)
-	emit_signal("maze_ready", Rect2(
-			map_loc(map_rect.position) + cell_offset,
-			(map_rect.size - Vector2.ONE) * $Maze.cell_size
-	))
 	restart()
 
 	for x in range(map_rect.position.x, map_rect.end.x):
@@ -49,8 +44,6 @@ func connect_signals():
 		# warning-ignore: RETURN_VALUE_DISCARDED
 		connect("enemy_home_ready", e, "_on_enemy_home_ready")
 		# warning-ignore: RETURN_VALUE_DISCARDED
-		connect("maze_ready", e, "_on_maze_ready")
-		# warning-ignore: RETURN_VALUE_DISCARDED
 		connect("player_powered_up", e, "_on_player_powered_up")
 		# warning-ignore: RETURN_VALUE_DISCARDED
 		connect("player_powered_down", e, "_on_player_powered_down")
@@ -73,18 +66,11 @@ func map_to_id(x, y):
 	return x + map_rect.end.x * y
 
 
-func _on_Enemy_request_path(enemy : Enemy, target : Vector2, avoid_player : bool):
-	var player_point = astar.get_closest_point($Player.position)
-	if avoid_player:
-		astar.set_point_disabled(player_point, true)
-
+func _on_Enemy_request_path(enemy: Enemy, target: Vector2):
 	var from_id = astar.get_closest_point(enemy.position)
 	var to_id = astar.get_closest_point(target)
 	var path = astar.get_point_path(from_id, to_id)
 	enemy.set("nav_path", path)
-
-	if avoid_player:
-		astar.set_point_disabled(player_point, false)
 
 
 func _on_Player_life_lost():

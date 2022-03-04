@@ -11,13 +11,12 @@ enum State {
 }
 
 
-signal request_path (self_, target_position, avoid_player)
+signal request_path (self_, target_position)
 
 
 var nav_path : PoolVector2Array = []
 var player : Player
 var home_area : Area2D
-var maze_bounds : Rect2
 var state = State.ROAMING setget set_state
 
 onready var speed_roaming = speed
@@ -31,58 +30,33 @@ export var roam_ai : Script
 
 
 func _process(_delta):
-	match state:
-		State.WAITING:
-			pass
-		State.IDLING:
-			idle_around()
-		State.ROAMING:
-			follow_path()
-		State.FLEEING:
-			follow_path()
-		State.EATEN:
-			follow_path()
-		_:
-			assert(false, "unhandled state in _process: %d" % state)
+	if is_following_path():
+		follow_path()
+	else:
+		match state:
+			State.WAITING:
+				pass
+			State.IDLING:
+				idle_around()
+			_:
+				assert(false, "invalid state not following_path: %d" % state)
+
+
+func is_following_path():
+	return (
+			state == State.ROAMING
+			or state == State.FLEEING
+			or state == State.EATEN
+	)
 
 
 func is_at_home():
 	return $InteractionArea.overlaps_area(home_area)
 
 
-# Breaking up the level into a 3x3 grid, checks if the given position
-# lies within the * sections:
-# *0*
-# 000
-# *0*
-func is_in_corner(pos : Vector2) -> bool:
-	var corner = nearest_corner(pos)
-	return (
-			abs(pos.x - corner.x) <= maze_bounds.size.x / 3
-			and abs(pos.y - corner.y) <= maze_bounds.size.y / 3
-	)
-
-
-func nearest_corner(pos : Vector2) -> Vector2:
-	var ret = Vector2(maze_bounds.position)
-
-	if abs(pos.x - maze_bounds.end.x) <= abs(pos.x - maze_bounds.position.x):
-		ret.x = maze_bounds.end.x
-
-	if abs(pos.y - maze_bounds.end.y) <= abs(pos.y - maze_bounds.position.y):
-		ret.y = maze_bounds.end.y
-
-	return ret
-
-
-func opposite_corner(pos : Vector2) -> Vector2:
-	return nearest_corner(maze_bounds.end + maze_bounds.position - pos)
-
-
 func follow_path():
 	if nav_path.size() == 0:
 		request_new_path()
-		idle_around()
 		return
 
 	var to_point_0 = nav_path[0] - position
@@ -122,25 +96,21 @@ func idle_around():
 
 
 func request_new_path():
+	if not is_following_path():
+		return
+
 	var target := position
-	var avoid_player := false
 	match state:
-		State.WAITING, State.IDLING:
-			return
 		State.ROAMING:
 			target = AI.pick_target(self)
 		State.FLEEING:
-			avoid_player = true
-			if is_in_corner(player.position):
-				target = opposite_corner(player.position)
-			else:
-				target = nearest_corner(position)
+			target = Vector2(50, 50)
 		State.EATEN:
 			target = home
 		_:
 			assert(false, "invalid state for request_new_path: %d" % state)
 
-	emit_signal("request_path", self, target, avoid_player)
+	emit_signal("request_path", self, target)
 
 
 func reset():
@@ -188,10 +158,6 @@ func _on_player_spawned(player_):
 
 func _on_enemy_home_ready(home_area_):
 	home_area = home_area_
-
-
-func _on_maze_ready(maze_bounds_ : Rect2):
-	maze_bounds = maze_bounds_
 
 
 func _on_player_powered_up():
