@@ -20,7 +20,9 @@ func _ready():
 	emit_signal("enemy_home_ready", $EnemyHome)
 	restart()
 
-	astar.reserve_space(int(map_rect.size.x * map_rect.size.y))
+	if astar.get_point_capacity() <= map_rect.size.x * map_rect.size.y:
+		astar.reserve_space(int(map_rect.size.x * map_rect.size.y))
+
 	for x in range(map_rect.position.x, map_rect.end.x):
 		for y in range(map_rect.position.y, map_rect.end.y):
 			astar.add_point(map_to_id(x, y), map_loc(Vector2(x, y)) + cell_offset)
