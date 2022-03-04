@@ -38,6 +38,8 @@ func _process(_delta):
 				pass
 			State.IDLING:
 				idle_around()
+			State.FLEEING:
+				flee(player.position)
 			_:
 				assert(false, "invalid state not following_path: %d" % state)
 
@@ -45,7 +47,6 @@ func _process(_delta):
 func is_following_path():
 	return (
 			state == State.ROAMING
-			or state == State.FLEEING
 			or state == State.EATEN
 	)
 
@@ -95,6 +96,21 @@ func idle_around():
 			queue_facing(get_left_facing(get_left_facing(facing)))
 
 
+func flee(pos : Vector2):
+	var away_from = nearest_facing(position - pos)
+	if is_opposite_facing(facing, away_from):
+		if can_move_in(away_from):
+			queue_facing(away_from)
+		elif can_move_in(get_left_facing(away_from)):
+			queue_facing(get_left_facing(away_from))
+		elif can_move_in(get_right_facing(away_from)):
+			queue_facing(get_right_facing(away_from))
+		else:
+			pass
+	else:
+		idle_around()
+
+
 func request_new_path():
 	if not is_following_path():
 		return
@@ -103,8 +119,6 @@ func request_new_path():
 	match state:
 		State.ROAMING:
 			target = AI.pick_target(self)
-		State.FLEEING:
-			target = Vector2(50, 50)
 		State.EATEN:
 			target = home
 		_:
