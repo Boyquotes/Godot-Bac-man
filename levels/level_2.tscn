@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://levels/LevelBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://pickups/Pellet.tscn" type="PackedScene" id=2]
+[ext_resource path="res://pickups/BigPellet.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 10 )
@@ -12,6 +14,393 @@ position = Vector2( 184, 200 )
 
 [node name="Maze" parent="." index="2"]
 tile_data = PoolIntArray( 1, 1610612736, 2, 2, 1610612736, 1, 3, -1073741824, 2, 4, 1610612736, 2, 5, 1610612736, 1, 6, -1073741824, 2, 7, 1610612736, 2, 8, 1610612736, 1, 9, -1073741824, 2, 65537, 1610612736, 65536, 65538, 0, 65536, 65539, -1610612736, 2, 65540, -1073741824, 1, 65541, 0, 65536, 65542, -1610612736, 1, 65543, 0, 2, 65544, 0, 65536, 65545, 0, 65536, 131073, 1610612736, 65536, 131074, 0, 65536, 131075, 1610612736, 2, 131076, 0, 1, 131077, 0, 1, 131078, 0, 1, 131079, -1073741824, 2, 131080, 0, 65536, 131081, 0, 65536, 196608, -1073741824, 65536, 196609, -1073741824, 1, 196610, -1610612736, 1, 196611, -1610612736, 0, 196612, -1610612736, 65536, 196613, 1610612736, 1, 196614, -1610612736, 65536, 196615, -1610612736, 0, 196616, -1073741824, 1, 196617, -1610612736, 1, 196618, -1073741824, 65536, 262145, 0, 65536, 262146, 0, 65536, 262147, 1610612736, 65536, 262148, -1610612736, 65537, 262149, 0, 1, 262150, -1073741824, 65537, 262151, 1610612736, 65536, 262152, 0, 65536, 262153, 0, 65536, 327681, 0, 65536, 327682, 0, 65536, 327683, -1610612736, 2, 327684, 1610612736, 1, 327685, -1073741824, 65536, 327686, 1610612736, 1, 327687, 0, 2, 327688, 0, 65536, 327689, 0, 65536, 393217, -1610612736, 2, 393218, 0, 1, 393219, -1073741824, 65536, 393220, 0, 1, 393221, -1073741824, 65536, 393222, 0, 1, 393223, -1073741824, 65536, 393224, 0, 1, 393225, 0, 2 )
+
+[node name="BigPellet" parent="Maze" index="0" instance=ExtResource( 3 )]
+position = Vector2( 176, 176 )
+
+[node name="BigPellet2" parent="Maze" index="1" instance=ExtResource( 3 )]
+position = Vector2( 80, 16 )
+
+[node name="BigPellet3" parent="Maze" index="2" instance=ExtResource( 3 )]
+position = Vector2( 272, 16 )
+
+[node name="Pellet" parent="Maze" index="3" instance=ExtResource( 2 )]
+position = Vector2( 48, 16 )
+
+[node name="Pellet2" parent="Maze" index="4" instance=ExtResource( 2 )]
+position = Vector2( 64, 16 )
+
+[node name="Pellet3" parent="Maze" index="5" instance=ExtResource( 2 )]
+position = Vector2( 96, 16 )
+
+[node name="Pellet4" parent="Maze" index="6" instance=ExtResource( 2 )]
+position = Vector2( 112, 16 )
+
+[node name="Pellet5" parent="Maze" index="7" instance=ExtResource( 2 )]
+position = Vector2( 144, 16 )
+
+[node name="Pellet6" parent="Maze" index="8" instance=ExtResource( 2 )]
+position = Vector2( 160, 16 )
+
+[node name="Pellet7" parent="Maze" index="9" instance=ExtResource( 2 )]
+position = Vector2( 176, 16 )
+
+[node name="Pellet8" parent="Maze" index="10" instance=ExtResource( 2 )]
+position = Vector2( 192, 16 )
+
+[node name="Pellet9" parent="Maze" index="11" instance=ExtResource( 2 )]
+position = Vector2( 208, 16 )
+
+[node name="Pellet10" parent="Maze" index="12" instance=ExtResource( 2 )]
+position = Vector2( 240, 16 )
+
+[node name="Pellet11" parent="Maze" index="13" instance=ExtResource( 2 )]
+position = Vector2( 256, 16 )
+
+[node name="Pellet12" parent="Maze" index="14" instance=ExtResource( 2 )]
+position = Vector2( 288, 16 )
+
+[node name="Pellet13" parent="Maze" index="15" instance=ExtResource( 2 )]
+position = Vector2( 304, 16 )
+
+[node name="Pellet14" parent="Maze" index="16" instance=ExtResource( 2 )]
+position = Vector2( 48, 32 )
+
+[node name="Pellet15" parent="Maze" index="17" instance=ExtResource( 2 )]
+position = Vector2( 80, 32 )
+
+[node name="Pellet16" parent="Maze" index="18" instance=ExtResource( 2 )]
+position = Vector2( 112, 32 )
+
+[node name="Pellet17" parent="Maze" index="19" instance=ExtResource( 2 )]
+position = Vector2( 144, 32 )
+
+[node name="Pellet18" parent="Maze" index="20" instance=ExtResource( 2 )]
+position = Vector2( 176, 32 )
+
+[node name="Pellet19" parent="Maze" index="21" instance=ExtResource( 2 )]
+position = Vector2( 208, 32 )
+
+[node name="Pellet20" parent="Maze" index="22" instance=ExtResource( 2 )]
+position = Vector2( 240, 32 )
+
+[node name="Pellet21" parent="Maze" index="23" instance=ExtResource( 2 )]
+position = Vector2( 272, 32 )
+
+[node name="Pellet22" parent="Maze" index="24" instance=ExtResource( 2 )]
+position = Vector2( 304, 32 )
+
+[node name="Pellet23" parent="Maze" index="25" instance=ExtResource( 2 )]
+position = Vector2( 48, 48 )
+
+[node name="Pellet24" parent="Maze" index="26" instance=ExtResource( 2 )]
+position = Vector2( 80, 48 )
+
+[node name="Pellet25" parent="Maze" index="27" instance=ExtResource( 2 )]
+position = Vector2( 112, 48 )
+
+[node name="Pellet26" parent="Maze" index="28" instance=ExtResource( 2 )]
+position = Vector2( 128, 48 )
+
+[node name="Pellet27" parent="Maze" index="29" instance=ExtResource( 2 )]
+position = Vector2( 144, 48 )
+
+[node name="Pellet28" parent="Maze" index="30" instance=ExtResource( 2 )]
+position = Vector2( 176, 48 )
+
+[node name="Pellet29" parent="Maze" index="31" instance=ExtResource( 2 )]
+position = Vector2( 208, 48 )
+
+[node name="Pellet30" parent="Maze" index="32" instance=ExtResource( 2 )]
+position = Vector2( 224, 48 )
+
+[node name="Pellet31" parent="Maze" index="33" instance=ExtResource( 2 )]
+position = Vector2( 240, 48 )
+
+[node name="Pellet32" parent="Maze" index="34" instance=ExtResource( 2 )]
+position = Vector2( 272, 48 )
+
+[node name="Pellet33" parent="Maze" index="35" instance=ExtResource( 2 )]
+position = Vector2( 304, 48 )
+
+[node name="Pellet34" parent="Maze" index="36" instance=ExtResource( 2 )]
+position = Vector2( 48, 64 )
+
+[node name="Pellet35" parent="Maze" index="37" instance=ExtResource( 2 )]
+position = Vector2( 80, 64 )
+
+[node name="Pellet36" parent="Maze" index="38" instance=ExtResource( 2 )]
+position = Vector2( 144, 64 )
+
+[node name="Pellet37" parent="Maze" index="39" instance=ExtResource( 2 )]
+position = Vector2( 176, 64 )
+
+[node name="Pellet38" parent="Maze" index="40" instance=ExtResource( 2 )]
+position = Vector2( 208, 64 )
+
+[node name="Pellet39" parent="Maze" index="41" instance=ExtResource( 2 )]
+position = Vector2( 272, 64 )
+
+[node name="Pellet40" parent="Maze" index="42" instance=ExtResource( 2 )]
+position = Vector2( 304, 64 )
+
+[node name="Pellet41" parent="Maze" index="43" instance=ExtResource( 2 )]
+position = Vector2( 48, 80 )
+
+[node name="Pellet42" parent="Maze" index="44" instance=ExtResource( 2 )]
+position = Vector2( 80, 80 )
+
+[node name="Pellet43" parent="Maze" index="45" instance=ExtResource( 2 )]
+position = Vector2( 112, 80 )
+
+[node name="Pellet44" parent="Maze" index="46" instance=ExtResource( 2 )]
+position = Vector2( 128, 80 )
+
+[node name="Pellet45" parent="Maze" index="47" instance=ExtResource( 2 )]
+position = Vector2( 144, 80 )
+
+[node name="Pellet46" parent="Maze" index="48" instance=ExtResource( 2 )]
+position = Vector2( 160, 80 )
+
+[node name="Pellet47" parent="Maze" index="49" instance=ExtResource( 2 )]
+position = Vector2( 192, 80 )
+
+[node name="Pellet48" parent="Maze" index="50" instance=ExtResource( 2 )]
+position = Vector2( 208, 80 )
+
+[node name="Pellet49" parent="Maze" index="51" instance=ExtResource( 2 )]
+position = Vector2( 224, 80 )
+
+[node name="Pellet50" parent="Maze" index="52" instance=ExtResource( 2 )]
+position = Vector2( 240, 80 )
+
+[node name="Pellet51" parent="Maze" index="53" instance=ExtResource( 2 )]
+position = Vector2( 272, 80 )
+
+[node name="Pellet52" parent="Maze" index="54" instance=ExtResource( 2 )]
+position = Vector2( 304, 80 )
+
+[node name="Pellet53" parent="Maze" index="55" instance=ExtResource( 2 )]
+position = Vector2( 48, 96 )
+
+[node name="Pellet54" parent="Maze" index="56" instance=ExtResource( 2 )]
+position = Vector2( 80, 96 )
+
+[node name="Pellet55" parent="Maze" index="57" instance=ExtResource( 2 )]
+position = Vector2( 112, 96 )
+
+[node name="Pellet56" parent="Maze" index="58" instance=ExtResource( 2 )]
+position = Vector2( 240, 96 )
+
+[node name="Pellet57" parent="Maze" index="59" instance=ExtResource( 2 )]
+position = Vector2( 272, 96 )
+
+[node name="Pellet58" parent="Maze" index="60" instance=ExtResource( 2 )]
+position = Vector2( 304, 96 )
+
+[node name="Pellet59" parent="Maze" index="61" instance=ExtResource( 2 )]
+position = Vector2( 48, 112 )
+
+[node name="Pellet60" parent="Maze" index="62" instance=ExtResource( 2 )]
+position = Vector2( 80, 112 )
+
+[node name="Pellet61" parent="Maze" index="63" instance=ExtResource( 2 )]
+position = Vector2( 96, 112 )
+
+[node name="Pellet62" parent="Maze" index="64" instance=ExtResource( 2 )]
+position = Vector2( 112, 112 )
+
+[node name="Pellet63" parent="Maze" index="65" instance=ExtResource( 2 )]
+position = Vector2( 128, 112 )
+
+[node name="Pellet64" parent="Maze" index="66" instance=ExtResource( 2 )]
+position = Vector2( 144, 112 )
+
+[node name="Pellet65" parent="Maze" index="67" instance=ExtResource( 2 )]
+position = Vector2( 160, 112 )
+
+[node name="Pellet66" parent="Maze" index="68" instance=ExtResource( 2 )]
+position = Vector2( 176, 112 )
+
+[node name="Pellet67" parent="Maze" index="69" instance=ExtResource( 2 )]
+position = Vector2( 192, 112 )
+
+[node name="Pellet68" parent="Maze" index="70" instance=ExtResource( 2 )]
+position = Vector2( 208, 112 )
+
+[node name="Pellet69" parent="Maze" index="71" instance=ExtResource( 2 )]
+position = Vector2( 224, 112 )
+
+[node name="Pellet70" parent="Maze" index="72" instance=ExtResource( 2 )]
+position = Vector2( 240, 112 )
+
+[node name="Pellet71" parent="Maze" index="73" instance=ExtResource( 2 )]
+position = Vector2( 256, 112 )
+
+[node name="Pellet72" parent="Maze" index="74" instance=ExtResource( 2 )]
+position = Vector2( 272, 112 )
+
+[node name="Pellet73" parent="Maze" index="75" instance=ExtResource( 2 )]
+position = Vector2( 304, 112 )
+
+[node name="Pellet74" parent="Maze" index="76" instance=ExtResource( 2 )]
+position = Vector2( 48, 128 )
+
+[node name="Pellet75" parent="Maze" index="77" instance=ExtResource( 2 )]
+position = Vector2( 80, 128 )
+
+[node name="Pellet76" parent="Maze" index="78" instance=ExtResource( 2 )]
+position = Vector2( 112, 128 )
+
+[node name="Pellet77" parent="Maze" index="79" instance=ExtResource( 2 )]
+position = Vector2( 240, 128 )
+
+[node name="Pellet78" parent="Maze" index="80" instance=ExtResource( 2 )]
+position = Vector2( 272, 128 )
+
+[node name="Pellet79" parent="Maze" index="81" instance=ExtResource( 2 )]
+position = Vector2( 304, 128 )
+
+[node name="Pellet80" parent="Maze" index="82" instance=ExtResource( 2 )]
+position = Vector2( 48, 144 )
+
+[node name="Pellet81" parent="Maze" index="83" instance=ExtResource( 2 )]
+position = Vector2( 80, 144 )
+
+[node name="Pellet82" parent="Maze" index="84" instance=ExtResource( 2 )]
+position = Vector2( 112, 144 )
+
+[node name="Pellet83" parent="Maze" index="85" instance=ExtResource( 2 )]
+position = Vector2( 240, 144 )
+
+[node name="Pellet84" parent="Maze" index="86" instance=ExtResource( 2 )]
+position = Vector2( 272, 144 )
+
+[node name="Pellet85" parent="Maze" index="87" instance=ExtResource( 2 )]
+position = Vector2( 304, 144 )
+
+[node name="Pellet86" parent="Maze" index="88" instance=ExtResource( 2 )]
+position = Vector2( 48, 160 )
+
+[node name="Pellet87" parent="Maze" index="89" instance=ExtResource( 2 )]
+position = Vector2( 80, 160 )
+
+[node name="Pellet88" parent="Maze" index="90" instance=ExtResource( 2 )]
+position = Vector2( 112, 160 )
+
+[node name="Pellet89" parent="Maze" index="91" instance=ExtResource( 2 )]
+position = Vector2( 240, 160 )
+
+[node name="Pellet90" parent="Maze" index="92" instance=ExtResource( 2 )]
+position = Vector2( 272, 160 )
+
+[node name="Pellet91" parent="Maze" index="93" instance=ExtResource( 2 )]
+position = Vector2( 304, 160 )
+
+[node name="Pellet92" parent="Maze" index="94" instance=ExtResource( 2 )]
+position = Vector2( 48, 176 )
+
+[node name="Pellet93" parent="Maze" index="95" instance=ExtResource( 2 )]
+position = Vector2( 80, 176 )
+
+[node name="Pellet94" parent="Maze" index="96" instance=ExtResource( 2 )]
+position = Vector2( 112, 176 )
+
+[node name="Pellet95" parent="Maze" index="97" instance=ExtResource( 2 )]
+position = Vector2( 128, 176 )
+
+[node name="Pellet96" parent="Maze" index="98" instance=ExtResource( 2 )]
+position = Vector2( 144, 176 )
+
+[node name="Pellet97" parent="Maze" index="99" instance=ExtResource( 2 )]
+position = Vector2( 160, 176 )
+
+[node name="Pellet98" parent="Maze" index="100" instance=ExtResource( 2 )]
+position = Vector2( 192, 176 )
+
+[node name="Pellet99" parent="Maze" index="101" instance=ExtResource( 2 )]
+position = Vector2( 208, 176 )
+
+[node name="Pellet100" parent="Maze" index="102" instance=ExtResource( 2 )]
+position = Vector2( 224, 176 )
+
+[node name="Pellet101" parent="Maze" index="103" instance=ExtResource( 2 )]
+position = Vector2( 240, 176 )
+
+[node name="Pellet102" parent="Maze" index="104" instance=ExtResource( 2 )]
+position = Vector2( 272, 176 )
+
+[node name="Pellet103" parent="Maze" index="105" instance=ExtResource( 2 )]
+position = Vector2( 304, 176 )
+
+[node name="Pellet104" parent="Maze" index="106" instance=ExtResource( 2 )]
+position = Vector2( 48, 192 )
+
+[node name="Pellet105" parent="Maze" index="107" instance=ExtResource( 2 )]
+position = Vector2( 80, 192 )
+
+[node name="Pellet106" parent="Maze" index="108" instance=ExtResource( 2 )]
+position = Vector2( 144, 192 )
+
+[node name="Pellet107" parent="Maze" index="109" instance=ExtResource( 2 )]
+position = Vector2( 208, 192 )
+
+[node name="Pellet108" parent="Maze" index="110" instance=ExtResource( 2 )]
+position = Vector2( 272, 192 )
+
+[node name="Pellet109" parent="Maze" index="111" instance=ExtResource( 2 )]
+position = Vector2( 304, 192 )
+
+[node name="Pellet110" parent="Maze" index="112" instance=ExtResource( 2 )]
+position = Vector2( 48, 208 )
+
+[node name="Pellet111" parent="Maze" index="113" instance=ExtResource( 2 )]
+position = Vector2( 64, 208 )
+
+[node name="Pellet112" parent="Maze" index="114" instance=ExtResource( 2 )]
+position = Vector2( 80, 208 )
+
+[node name="Pellet113" parent="Maze" index="115" instance=ExtResource( 2 )]
+position = Vector2( 96, 208 )
+
+[node name="Pellet114" parent="Maze" index="116" instance=ExtResource( 2 )]
+position = Vector2( 112, 208 )
+
+[node name="Pellet115" parent="Maze" index="117" instance=ExtResource( 2 )]
+position = Vector2( 128, 208 )
+
+[node name="Pellet116" parent="Maze" index="118" instance=ExtResource( 2 )]
+position = Vector2( 144, 208 )
+
+[node name="Pellet117" parent="Maze" index="119" instance=ExtResource( 2 )]
+position = Vector2( 160, 208 )
+
+[node name="Pellet118" parent="Maze" index="120" instance=ExtResource( 2 )]
+position = Vector2( 176, 208 )
+
+[node name="Pellet119" parent="Maze" index="121" instance=ExtResource( 2 )]
+position = Vector2( 192, 208 )
+
+[node name="Pellet120" parent="Maze" index="122" instance=ExtResource( 2 )]
+position = Vector2( 208, 208 )
+
+[node name="Pellet121" parent="Maze" index="123" instance=ExtResource( 2 )]
+position = Vector2( 224, 208 )
+
+[node name="Pellet122" parent="Maze" index="124" instance=ExtResource( 2 )]
+position = Vector2( 240, 208 )
+
+[node name="Pellet123" parent="Maze" index="125" instance=ExtResource( 2 )]
+position = Vector2( 257, 208 )
+
+[node name="Pellet124" parent="Maze" index="126" instance=ExtResource( 2 )]
+position = Vector2( 272, 208 )
+
+[node name="Pellet125" parent="Maze" index="127" instance=ExtResource( 2 )]
+position = Vector2( 288, 208 )
+
+[node name="Pellet126" parent="Maze" index="128" instance=ExtResource( 2 )]
+position = Vector2( 304, 208 )
 
 [node name="Player" parent="." index="3"]
 position = Vector2( 184, 152 )
