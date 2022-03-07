@@ -11,7 +11,8 @@ enum {
 
 const scene_order = [
 	"TitleScreen",
-	"levels/level_test",
+	"levels/level_1",
+	"levels/level_2",
 	"GameOver",
 ]
 
