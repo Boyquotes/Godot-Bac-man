@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://actor/Actor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actor/Enemy.gd" type="Script" id=2]
@@ -20,8 +20,16 @@
 [ext_resource path="res://assets/gost-flee7.png" type="Texture" id=18]
 [ext_resource path="res://assets/gost-eaten0.png" type="Texture" id=19]
 [ext_resource path="res://assets/Pickup_01.wav" type="AudioStream" id=20]
+[ext_resource path="res://resources/palette-swap.gdshader" type="Shader" id=21]
+[ext_resource path="res://resources/gost_base_colour.png" type="Texture" id=22]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 21 )
+shader_param/swap_colour = null
+shader_param/base_colour = ExtResource( 22 )
+
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ ExtResource( 12 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 17 ), ExtResource( 18 ) ],
 "loop": true,
@@ -46,7 +54,8 @@ script = ExtResource( 2 )
 speed = 55
 
 [node name="AnimatedSprite" parent="." index="1"]
-frames = SubResource( 1 )
+material = SubResource( 1 )
+frames = SubResource( 2 )
 animation = "walk"
 
 [node name="PathTimer" type="Timer" parent="." index="2"]

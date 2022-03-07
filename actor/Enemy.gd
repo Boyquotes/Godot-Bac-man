@@ -27,6 +27,11 @@ export var speed_idling = 40
 export var speed_fleeing = 40
 export var speed_eaten = 100
 export var roam_ai : Script
+export var sprite_colour : Color = Color.red
+
+
+func _ready():
+	$AnimatedSprite.material.set_shader_param("swap_colour", sprite_colour)
 
 
 func _process(_delta):

@@ -27,9 +27,11 @@ format = 1
 
 [node name="Enemy1" parent="." instance=ExtResource( 4 )]
 roam_ai = ExtResource( 7 )
+sprite_colour = Color( 0.917647, 0.356863, 0.356863, 1 )
 
 [node name="Enemy2" parent="." instance=ExtResource( 4 )]
 roam_ai = ExtResource( 8 )
+sprite_colour = Color( 0.34902, 0.6, 0.34902, 1 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
