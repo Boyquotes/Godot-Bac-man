@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://levels/LevelBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://pickups/Pellet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://pickups/BigPellet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://WarpZone.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 10 )
@@ -416,3 +417,14 @@ position = Vector2( 184, 216 )
 
 [node name="CollisionShape2D" parent="EnemyHome" index="0"]
 shape = SubResource( 1 )
+
+[node name="WarpZone" parent="." index="9" instance=ExtResource( 4 )]
+position = Vector2( -80, 168 )
+
+[node name="LeftZone" parent="WarpZone" index="0"]
+position = Vector2( 96, 16 )
+
+[node name="RightZone" parent="WarpZone" index="1"]
+position = Vector2( 432, 16 )
+
+[editable path="WarpZone"]

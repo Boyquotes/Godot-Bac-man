@@ -80,6 +80,7 @@ texture={
 2d_physics/layer_4="pickup"
 2d_physics/layer_5="anti-player-wall"
 2d_physics/layer_6="enemy home"
+2d_physics/layer_7="warp zone"
 
 [physics]
 
