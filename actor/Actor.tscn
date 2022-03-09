@@ -18,6 +18,7 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+pause_mode = 2
 
 [node name="InteractionArea" type="Area2D" parent="."]
 collision_layer = 0

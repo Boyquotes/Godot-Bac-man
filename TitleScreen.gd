@@ -12,4 +12,5 @@ func _input(event):
 func _on_Player_pickup_collected(_type):
 	pellet_count -= 1
 	if pellet_count <= 0:
+		yield(get_tree().create_timer(0.5), "timeout")
 		Global.notify_event(Global.SCENE_CLEAR)

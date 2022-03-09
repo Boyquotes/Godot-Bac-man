@@ -47,6 +47,7 @@ collision_layer = 2
 collision_mask = 72
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="." index="3"]
+pause_mode = 2
 stream = ExtResource( 13 )
 
 [node name="PowerupTimer" type="Timer" parent="." index="4"]

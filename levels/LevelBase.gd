@@ -86,6 +86,12 @@ func map_to_id(x, y):
 	return x + map_rect.end.x * y
 
 
+func freeze_frame(t : float = 0.2):
+	get_tree().paused = true
+	yield(get_tree().create_timer(t), "timeout")
+	get_tree().paused = false
+
+
 func _on_Enemy_request_path(enemy: Enemy, target: Vector2):
 	var from_id = astar.get_closest_point(enemy.position)
 	var to_id = astar.get_closest_point(target)
@@ -110,6 +116,7 @@ func _on_Player_pickup_collected(type):
 			Global.notify_event(Global.PELLET_COLLECTED)
 			pellet_count -= 1
 			if pellet_count <= 0:
+				yield(freeze_frame(1.0), "completed")
 				Global.notify_event(Global.SCENE_CLEAR)
 		"big_pellet":
 			Global.notify_event(Global.BIG_PELLET_COLLECTED)
@@ -128,6 +135,7 @@ func _on_Player_entered_enemy(enemy):
 		Enemy.State.EATEN:
 			pass
 		_:
+			freeze_frame()
 			Global.notify_event(Global.ENEMY_EATEN)
 			enemy.set_state(Enemy.State.EATEN)
 

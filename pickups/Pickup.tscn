@@ -14,8 +14,10 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+pause_mode = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 
 [connection signal="area_entered" from="." to="." method="_on_Pickup_area_entered"]
 [connection signal="finished" from="AudioStreamPlayer" to="." method="queue_free"]
