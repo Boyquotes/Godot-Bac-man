@@ -113,3 +113,7 @@ func _on_Player_entered_enemy(enemy):
 		_:
 			Global.notify_event(Global.ENEMY_EATEN)
 			enemy.set_state(Enemy.State.EATEN)
+
+
+func _on_Actor_enter_warp(actor : Actor, destination : Vector2):
+	actor.position = destination

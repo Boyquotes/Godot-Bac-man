@@ -16,9 +16,9 @@ collision_layer = 64
 collision_mask = 6
 
 [node name="ColorRect" type="ColorRect" parent="LeftZone"]
-margin_left = -8.0
+margin_left = -24.0
 margin_top = -8.0
-margin_right = 24.0
+margin_right = 8.0
 margin_bottom = 8.0
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
@@ -27,6 +27,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftZone"]
+position = Vector2( -16, 0 )
 shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
@@ -38,9 +39,9 @@ collision_layer = 64
 collision_mask = 6
 
 [node name="ColorRect" type="ColorRect" parent="RightZone"]
-margin_left = -24.0
+margin_left = -8.0
 margin_top = -8.0
-margin_right = 8.0
+margin_right = 24.0
 margin_bottom = 8.0
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
@@ -49,6 +50,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightZone"]
+position = Vector2( 16, 0 )
 shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
