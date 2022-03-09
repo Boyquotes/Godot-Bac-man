@@ -57,8 +57,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[connection signal="entered_enemy" from="Player" to="." method="_on_Player_entered_enemy"]
 [connection signal="life_lost" from="Player" to="." method="_on_Player_life_lost"]
-[connection signal="pickup_collected" from="Player" to="." method="_on_Player_pickup_collected"]
-[connection signal="powerup_timedout" from="Player" to="." method="_on_Player_powerup_timedout"]
+[connection signal="powered_down" from="Player" to="." method="_on_Player_powered_down"]
+[connection signal="powered_up" from="Player" to="." method="_on_Player_powered_up"]
 [connection signal="timeout" from="RestartTimer" to="." method="_on_RestartTimer_timeout"]

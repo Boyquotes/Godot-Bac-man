@@ -12,6 +12,7 @@ enum State {
 
 
 signal request_path (self_, target_position)
+signal get_eaten ()
 
 
 var nav_path : PoolVector2Array = []
@@ -153,42 +154,48 @@ func set_state(state_):
 	request_new_path()
 	match state_:
 		State.WAITING:
+			hurts_player = false
 			speed = 0
 			$AnimatedSprite.play("walk")
 		State.IDLING:
+			hurts_player = true
 			speed = speed_idling
 			$IdlingTimer.start()
 			$AnimatedSprite.play("walk")
 		State.ROAMING:
+			hurts_player = true
 			speed = speed_roaming
 			$AnimatedSprite.play("walk")
 		State.FLEEING:
+			hurts_player = false
 			speed = speed_fleeing
 			$AnimatedSprite.play("flee")
 		State.EATEN:
+			hurts_player = false
 			speed = speed_eaten
 			$EatenSound.play()
 			$AnimatedSprite.play("eaten")
+			emit_signal("get_eaten")
 		_:
 			assert(false, "unhandled state change to %d" % state_)
 
 
-func _on_player_spawned(player_):
-	player = player_
-
-
-func _on_enemy_home_ready(home_area_):
-	home_area = home_area_
-
-
 func _on_player_powered_up():
-	if not is_at_home() and state != State.EATEN:
-		set_state(State.FLEEING)
+	if not is_at_home():
+		match state:
+			State.IDLING, State.ROAMING:
+				set_state(State.FLEEING)
+			_:
+				pass
 
 
 func _on_player_powered_down():
-	if not is_at_home() and state != State.EATEN:
-		set_state(State.ROAMING)
+	if not is_at_home():
+		match state:
+			State.FLEEING:
+				set_state(State.ROAMING)
+			_:
+				pass
 
 
 func _on_IdlingTimer_timeout():
@@ -197,5 +204,8 @@ func _on_IdlingTimer_timeout():
 
 
 func _on_InteractionArea_area_entered(area : Area2D):
-	if area == home_area and state == State.EATEN:
+	if area == home_area:
 		set_state(State.IDLING)
+	elif area.owner is Actor:
+		if state == State.FLEEING and area.owner.eats_ghosts:
+			set_state(State.EATEN)

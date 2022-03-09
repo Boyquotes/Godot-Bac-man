@@ -36,4 +36,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pickup_collected" from="Player" to="." method="_on_Player_pickup_collected"]
+[connection signal="collected" from="Pellet" to="." method="_on_Pickup_collected"]
+[connection signal="collected" from="Pellet2" to="." method="_on_Pickup_collected"]
+[connection signal="collected" from="Pellet3" to="." method="_on_Pickup_collected"]

@@ -23,15 +23,15 @@ animations = [ {
 "name": "walk",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 15 ), ExtResource( 14 ) ],
-"loop": true,
-"name": "powerup",
-"speed": 8.0
-}, {
 "frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 5 ), ExtResource( 11 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 10 ), ExtResource( 12 ) ],
 "loop": false,
 "name": "death",
 "speed": 3.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 15 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "powerup",
+"speed": 8.0
 } ]
 
 [node name="Player" instance=ExtResource( 1 )]
@@ -44,7 +44,7 @@ animation = "walk"
 
 [node name="InteractionArea" parent="." index="2"]
 collision_layer = 2
-collision_mask = 72
+collision_mask = 76
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="." index="3"]
 pause_mode = 2

@@ -9,12 +9,10 @@ class UnitAStar2D:
 
 	func _estimate_cost(_u, _v):
 		return 1
-	
 
-signal player_spawned (player)
-signal enemy_home_ready (home)
-signal player_powered_up
-signal player_powered_down
+
+signal player_powered_up ()
+signal player_powered_down ()
 
 
 onready var cell_offset : Vector2 = 0.5 * $Maze.cell_size * Vector2.ONE
@@ -26,8 +24,11 @@ onready var pellet_count := get_tree().get_nodes_in_group("pellets").size()
 
 func _ready():
 	connect_signals()
-	emit_signal("player_spawned", $Player)
-	emit_signal("enemy_home_ready", $EnemyHome)
+
+	for e in get_tree().get_nodes_in_group("enemies"):
+		e.player = $Player
+		e.home_area = $EnemyHome
+
 	restart()
 
 	if astar.get_point_capacity() <= map_rect.size.x * map_rect.size.y:
@@ -60,15 +61,17 @@ func _ready():
 func connect_signals():
 	for e in get_tree().get_nodes_in_group("enemies"):
 		# warning-ignore: RETURN_VALUE_DISCARDED
-		connect("player_spawned", e, "_on_player_spawned")
-		# warning-ignore: RETURN_VALUE_DISCARDED
-		connect("enemy_home_ready", e, "_on_enemy_home_ready")
-		# warning-ignore: RETURN_VALUE_DISCARDED
 		connect("player_powered_up", e, "_on_player_powered_up")
 		# warning-ignore: RETURN_VALUE_DISCARDED
 		connect("player_powered_down", e, "_on_player_powered_down")
 		# warning-ignore: RETURN_VALUE_DISCARDED
 		e.connect("request_path", self, "_on_Enemy_request_path")
+		# warning-ignore: RETURN_VALUE_DISCARDED
+		e.connect("get_eaten", self, "_on_Enemy_eaten")
+
+	for p in get_tree().get_nodes_in_group("pickups"):
+		# warning-ignore: RETURN_VALUE_DISCARDED
+		p.connect("collected", self, "_on_Pickup_collected")
 
 
 func restart():
@@ -99,6 +102,11 @@ func _on_Enemy_request_path(enemy: Enemy, target: Vector2):
 	enemy.set("nav_path", path)
 
 
+func _on_Enemy_eaten():
+	freeze_frame()
+	Global.notify_event(Global.ENEMY_EATEN)
+
+
 func _on_Player_life_lost():
 	Global.notify_event(Global.LIFE_LOST)
 	restart()
@@ -110,7 +118,7 @@ func _on_RestartTimer_timeout():
 		e.set_state(Enemy.State.IDLING)
 
 
-func _on_Player_pickup_collected(type):
+func _on_Pickup_collected(type : String):
 	match type:
 		"pellet":
 			Global.notify_event(Global.PELLET_COLLECTED)
@@ -120,24 +128,16 @@ func _on_Player_pickup_collected(type):
 				Global.notify_event(Global.SCENE_CLEAR)
 		"big_pellet":
 			Global.notify_event(Global.BIG_PELLET_COLLECTED)
-			$Player.set_state(Player.State.POWERUP)
-			emit_signal("player_powered_up")
 		_:
 			assert(false, "invalid pickup type: %s" % type)
 
 
-func _on_Player_powerup_timedout():
+func _on_Player_powered_up():
+	emit_signal("player_powered_up")
+
+
+func _on_Player_powered_down():
 	emit_signal("player_powered_down")
-
-
-func _on_Player_entered_enemy(enemy):
-	match enemy.state:
-		Enemy.State.EATEN:
-			pass
-		_:
-			freeze_frame()
-			Global.notify_event(Global.ENEMY_EATEN)
-			enemy.set_state(Enemy.State.EATEN)
 
 
 func _on_Actor_enter_warp(actor : Actor, destination : Vector2):
