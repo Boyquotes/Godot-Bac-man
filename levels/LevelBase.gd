@@ -1,6 +1,16 @@
 extends Node2D
 
 
+class UnitAStar2D:
+	extends AStar2D
+
+	func _compute_cost(_u, _v):
+		return 1
+
+	func _estimate_cost(_u, _v):
+		return 1
+	
+
 signal player_spawned (player)
 signal enemy_home_ready (home)
 signal player_powered_up
@@ -8,7 +18,7 @@ signal player_powered_down
 
 
 onready var cell_offset : Vector2 = 0.5 * $Maze.cell_size * Vector2.ONE
-onready var astar := AStar2D.new()
+onready var astar := UnitAStar2D.new()
 onready var map_rect : Rect2 = $Maze.get_used_rect()
 onready var space_state := get_world_2d().direct_space_state
 onready var pellet_count := get_tree().get_nodes_in_group("pellets").size()
