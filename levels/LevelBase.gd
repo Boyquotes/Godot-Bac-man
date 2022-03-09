@@ -39,6 +39,13 @@ func _ready():
 				if !ray_result:
 					astar.connect_points(map_to_id(x, y), map_to_id(x, y + 1))
 
+	for zone in get_tree().get_nodes_in_group("warpzones"):
+		var locations = zone.get_zone_locations()
+		astar.connect_points(
+				astar.get_closest_point(locations[0]),
+				astar.get_closest_point(locations[1])
+		)
+
 
 func connect_signals():
 	for e in get_tree().get_nodes_in_group("enemies"):

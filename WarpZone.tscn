@@ -8,7 +8,9 @@ extents = Vector2( 8, 8 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 8 )
 
-[node name="WarpZone" type="Node2D"]
+[node name="WarpZone" type="Node2D" groups=[
+"warpzones",
+]]
 script = ExtResource( 1 )
 
 [node name="LeftZone" type="Area2D" parent="."]
