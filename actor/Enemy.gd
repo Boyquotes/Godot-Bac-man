@@ -61,12 +61,13 @@ func is_at_home():
 
 
 func follow_path():
-	if nav_path.size() == 0:
+	# Hacky length condition to properly cross WarpZones (1/2)
+	if nav_path.size() == 0 or (nav_path[0] - position).length() > 64:
 		request_new_path()
 		return
 
 	var to_point_0 = nav_path[0] - position
-	var facing_ = nearest_facing(to_point_0)
+	var facing_ = nearest_facing(to_point_0) # TODO: what if (0,0)?
 
 	if nav_path.size() <= 1:
 		if to_point_0.length() < 16:
@@ -77,7 +78,8 @@ func follow_path():
 		else:
 			var to_point_1 = nav_path[1] - position
 			var facing_1 = nearest_facing(to_point_1)
-			if is_opposite_facing(facing_, facing_1):
+			# Hacky length condition to properly cross WarpZones (2/2)
+			if to_point_1.length() < 32 and is_opposite_facing(facing_, facing_1):
 				facing_ = facing_1
 				nav_path.remove(0)
 
