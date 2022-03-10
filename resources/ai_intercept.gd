@@ -8,6 +8,10 @@ func _init(cutoff_length_ := 96):
 	cutoff_length = cutoff_length_
 
 
+func roam(owner : Enemy):
+	owner.follow_path()
+
+
 # Scans ahead of the Player, turning around walls as it hits them.
 # If the owning Enemy is on this path, we target the Player instead.
 func pick_target(owner : Enemy):

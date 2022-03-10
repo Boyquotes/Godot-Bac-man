@@ -36,18 +36,19 @@ func _ready():
 
 
 func _process(_delta):
-	if is_following_path():
-		follow_path()
-	else:
-		match state:
-			State.WAITING:
-				pass
-			State.IDLING:
-				idle_around()
-			State.FLEEING:
-				flee(player.position)
-			_:
-				assert(false, "invalid state not following_path: %d" % state)
+	match state:
+		State.WAITING:
+			pass
+		State.IDLING:
+			idle_around()
+		State.ROAMING:
+			AI.roam(self)
+		State.FLEEING:
+			flee(player.position)
+		State.EATEN:
+			follow_path()
+		_:
+			assert(false, "unhandled Enemy state: %d" % state)
 
 
 func is_following_path():
