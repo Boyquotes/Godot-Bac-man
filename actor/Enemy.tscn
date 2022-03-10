@@ -31,15 +31,15 @@ shader_param/base_colour = ExtResource( 22 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 10 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 9 ) ],
-"loop": true,
-"name": "walk",
-"speed": 12.0
-}, {
 "frames": [ ExtResource( 19 ) ],
 "loop": true,
 "name": "eaten",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 10 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "walk",
+"speed": 12.0
 }, {
 "frames": [ ExtResource( 12 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 17 ), ExtResource( 18 ) ],
 "loop": true,

@@ -55,6 +55,11 @@ window/size/test_height=800
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
+[gui]
+
+theme/custom="res://resources/default_theme.tres"
+theme/custom_font="res://resources/default_font.tres"
+
 [importer_defaults]
 
 texture={
