@@ -90,6 +90,13 @@ func follow_path():
 
 func idle_around():
 	if facing == Facing.NONE:
+		queue_facing(Facing.LEFT)
+	elif not can_move_in(facing):
+		queue_facing(get_left_facing(get_left_facing(facing)))
+
+
+func move_randomly():
+	if facing == Facing.NONE:
 		for f in [Facing.LEFT, Facing.DOWN, Facing.RIGHT, Facing.UP]:
 			if can_move_in(f):
 				queue_facing(f)
@@ -134,7 +141,7 @@ func flee(pos : Vector2):
 		else:
 			pass
 	else:
-		idle_around()
+		move_randomly()
 
 
 func request_new_path():
