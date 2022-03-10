@@ -16,6 +16,7 @@ signal powered_up ()
 
 
 var state = State.ROAMING setget set_state
+var combo := 0
 
 onready var speed_roaming = speed
 onready var home = position
@@ -39,6 +40,7 @@ func _unhandled_input(event):
 
 func reset():
 	set_state(State.WAITING)
+	combo = 0
 	position = home
 	.reset()
 
@@ -88,4 +90,5 @@ func _on_InteractionArea_area_entered(area : Area2D):
 
 func _on_PowerupTimer_timeout():
 	set_state(State.ROAMING)
+	combo = 0
 	emit_signal("powered_down")

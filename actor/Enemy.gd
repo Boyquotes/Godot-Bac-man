@@ -12,7 +12,7 @@ enum State {
 
 
 signal request_path (self_, target_position)
-signal get_eaten ()
+signal get_eaten (eater)
 
 
 var nav_path : PoolVector2Array = []
@@ -200,7 +200,6 @@ func set_state(state_):
 			speed = speed_eaten
 			$EatenSound.play()
 			$AnimatedSprite.play("eaten")
-			emit_signal("get_eaten")
 		_:
 			assert(false, "unhandled state change to %d" % state_)
 
@@ -234,3 +233,4 @@ func _on_InteractionArea_area_entered(area : Area2D):
 	elif area.owner is Actor:
 		if state == State.FLEEING and area.owner.eats_ghosts:
 			set_state(State.EATEN)
+			emit_signal("get_eaten", area.owner)
