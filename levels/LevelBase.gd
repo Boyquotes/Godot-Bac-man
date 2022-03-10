@@ -102,9 +102,9 @@ func _on_Enemy_request_path(enemy: Enemy, target: Vector2):
 	enemy.set("nav_path", path)
 
 
-func _on_Enemy_eaten(eater : Player):
+func _on_Enemy_eaten(eaten : Enemy, eater : Player):
 	freeze_frame()
-	Global.notify_event(Global.ENEMY_EATEN, { combo = eater.combo })
+	Global.notify_event(Global.ENEMY_EATEN, { combo = eater.combo, loc = eaten.position })
 	eater.combo += 1
 
 

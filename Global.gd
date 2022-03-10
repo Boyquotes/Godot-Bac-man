@@ -68,6 +68,7 @@ func notify_event(event : int, parms : Dictionary = {}):
 		ENEMY_EATEN:
 			var score_index = min(parms.combo, enemy_eaten_score.size() - 1)
 			set_score(score + enemy_eaten_score[score_index])
+			get_tree().call_group("HUD", "spawn_score_label", parms.loc, enemy_eaten_score[score_index])
 		LIFE_LOST:
 			lose_life()
 		SCENE_CLEAR:
