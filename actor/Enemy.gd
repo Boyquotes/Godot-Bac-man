@@ -92,7 +92,12 @@ func idle_around():
 	if facing == Facing.NONE:
 		queue_facing(Facing.LEFT)
 	elif not can_move_in(facing):
-		queue_facing(get_left_facing(get_left_facing(facing)))
+		if can_move_in(get_left_facing(facing)):
+			queue_facing(get_left_facing(facing))
+		elif can_move_in(get_right_facing(facing)):
+			queue_facing(get_right_facing(facing))
+		else:
+			queue_facing(get_left_facing(get_left_facing(facing)))
 
 
 func move_randomly():
@@ -229,7 +234,11 @@ func _on_IdlingTimer_timeout():
 
 func _on_InteractionArea_area_entered(area : Area2D):
 	if area == home_area:
-		set_state(State.IDLING)
+		match state:
+			State.FLEEING, State.EATEN:
+				set_state(State.IDLING)
+			_:
+				return
 	elif area.owner is Actor:
 		if state == State.FLEEING and area.owner.eats_ghosts:
 			set_state(State.EATEN)
