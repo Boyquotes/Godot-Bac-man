@@ -119,7 +119,7 @@ func _on_RestartTimer_timeout():
 		e.set_state(Enemy.State.IDLING)
 
 
-func _on_Pickup_collected(type : String):
+func _on_Pickup_collected(pickup : Pickup, type : String):
 	match type:
 		"pellet":
 			Global.notify_event(Global.PELLET_COLLECTED)
@@ -129,6 +129,8 @@ func _on_Pickup_collected(type : String):
 				Global.notify_event(Global.SCENE_CLEAR)
 		"big_pellet":
 			Global.notify_event(Global.BIG_PELLET_COLLECTED)
+		"fruit":
+			Global.notify_event(Global.FRUIT_COLLECTED, { loc = pickup.get_global_position() })
 		_:
 			assert(false, "invalid pickup type: %s" % type)
 

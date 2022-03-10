@@ -9,7 +9,7 @@ func _input(event):
 		get_tree().set_input_as_handled()
 
 
-func _on_Pickup_collected(_type):
+func _on_Pickup_collected(_pickup : Pickup, _type : String):
 	pellet_count -= 1
 	if pellet_count <= 0:
 		yield(get_tree().create_timer(0.5), "timeout")
