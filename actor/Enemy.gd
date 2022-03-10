@@ -95,7 +95,24 @@ func idle_around():
 				return
 	else:
 		if can_move_in(facing):
+			var ljunc = can_move_in(get_left_facing(facing))
+			var rjunc = can_move_in(get_right_facing(facing))
+			var r = randf()
+			if ljunc and rjunc:
+				if r < 0.33:
+					queue_facing(get_left_facing(facing))
+				elif r < 0.66:
+					queue_facing(get_right_facing(facing))
+			elif ljunc and r < 0.5:
+				queue_facing(get_left_facing(facing))
+			elif rjunc and r < 0.5:
+				queue_facing(get_right_facing(facing))
 			return
+		elif can_move_in(get_left_facing(facing)) and can_move_in(get_right_facing(facing)):
+			if randf() < 0.5:
+				queue_facing(get_left_facing(facing))
+			else:
+				queue_facing(get_right_facing(facing))
 		elif can_move_in(get_left_facing(facing)):
 			queue_facing(get_left_facing(facing))
 		elif can_move_in(get_right_facing(facing)):
