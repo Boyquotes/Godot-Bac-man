@@ -2,7 +2,7 @@
 
 [ext_resource path="res://levels/LevelBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://pickups/Pellet.tscn" type="PackedScene" id=2]
-[ext_resource path="res://pickups/BigPellet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://pickups/FruitSpawner.tscn" type="PackedScene" id=3]
 [ext_resource path="res://WarpZone.tscn" type="PackedScene" id=4]
 [ext_resource path="res://actor/Enemy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://resources/ai_random.gd" type="Script" id=6]
@@ -18,13 +18,13 @@ position = Vector2( 184, 200 )
 [node name="Maze" parent="." index="2"]
 tile_data = PoolIntArray( 1, 1610612736, 2, 2, 1610612736, 1, 3, -1073741824, 2, 4, 1610612736, 2, 5, 1610612736, 1, 6, -1073741824, 2, 7, 1610612736, 2, 8, 1610612736, 1, 9, -1073741824, 2, 65537, 1610612736, 65536, 65538, 0, 65536, 65539, -1610612736, 2, 65540, -1073741824, 1, 65541, 0, 65536, 65542, -1610612736, 1, 65543, 0, 2, 65544, 0, 65536, 65545, 0, 65536, 131073, 1610612736, 65536, 131074, 0, 65536, 131075, 1610612736, 2, 131076, 0, 1, 131077, 0, 1, 131078, 0, 1, 131079, -1073741824, 2, 131080, 0, 65536, 131081, 0, 65536, 196608, -1073741824, 65536, 196609, -1073741824, 1, 196610, -1610612736, 1, 196611, -1610612736, 0, 196612, -1610612736, 65536, 196613, 1610612736, 1, 196614, -1610612736, 65536, 196615, -1610612736, 0, 196616, -1073741824, 1, 196617, -1610612736, 1, 196618, -1073741824, 65536, 262145, 0, 65536, 262146, 0, 65536, 262147, 1610612736, 65536, 262148, -1610612736, 65537, 262149, 0, 1, 262150, -1073741824, 65537, 262151, 1610612736, 65536, 262152, 0, 65536, 262153, 0, 65536, 327681, 0, 65536, 327682, 0, 65536, 327683, -1610612736, 2, 327684, 1610612736, 1, 327685, -1073741824, 65536, 327686, 1610612736, 1, 327687, 0, 2, 327688, 0, 65536, 327689, 0, 65536, 393217, -1610612736, 2, 393218, 0, 1, 393219, -1073741824, 65536, 393220, 0, 1, 393221, -1073741824, 65536, 393222, 0, 1, 393223, -1073741824, 65536, 393224, 0, 1, 393225, 0, 2 )
 
-[node name="BigPellet" parent="Maze" index="0" instance=ExtResource( 3 )]
+[node name="FruitSpawner" parent="Maze" index="0" instance=ExtResource( 3 )]
 position = Vector2( 176, 176 )
 
-[node name="BigPellet2" parent="Maze" index="1" instance=ExtResource( 3 )]
+[node name="FruitSpawner2" parent="Maze" index="1" instance=ExtResource( 3 )]
 position = Vector2( 80, 16 )
 
-[node name="BigPellet3" parent="Maze" index="2" instance=ExtResource( 3 )]
+[node name="FruitSpawner3" parent="Maze" index="2" instance=ExtResource( 3 )]
 position = Vector2( 272, 16 )
 
 [node name="Pellet" parent="Maze" index="3" instance=ExtResource( 2 )]

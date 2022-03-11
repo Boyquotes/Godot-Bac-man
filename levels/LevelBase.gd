@@ -15,11 +15,14 @@ signal player_powered_up ()
 signal player_powered_down ()
 
 
+export var enemies_per_fruit := 3
+
 onready var cell_offset : Vector2 = 0.5 * $Maze.cell_size * Vector2.ONE
 onready var astar := UnitAStar2D.new()
 onready var map_rect : Rect2 = $Maze.get_used_rect()
 onready var space_state := get_world_2d().direct_space_state
 onready var pellet_count := get_tree().get_nodes_in_group("pellets").size()
+onready var to_next_fruit := enemies_per_fruit
 
 
 func _ready():
@@ -95,6 +98,15 @@ func freeze_frame(t : float = 0.2):
 	get_tree().paused = false
 
 
+func spawn_fruit():
+	for s in get_tree().get_nodes_in_group("fruit_spawners"):
+		var fruit = s.spawn_fruit()
+		if fruit:
+			fruit.connect("collected", self, "_on_Pickup_collected")
+			to_next_fruit = enemies_per_fruit
+			return
+
+
 func _on_Enemy_request_path(enemy: Enemy, target: Vector2):
 	var from_id = astar.get_closest_point(enemy.position)
 	var to_id = astar.get_closest_point(target)
@@ -106,6 +118,9 @@ func _on_Enemy_eaten(eaten : Enemy, eater : Player):
 	freeze_frame()
 	Global.notify_event(Global.ENEMY_EATEN, { combo = eater.combo, loc = eaten.position })
 	eater.combo += 1
+	to_next_fruit -= 1
+	if to_next_fruit <= 0:
+		spawn_fruit()
 
 
 func _on_Player_life_lost():

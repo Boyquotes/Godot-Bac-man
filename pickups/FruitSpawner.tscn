@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://pickups/BigPellet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://pickups/FruitSpawner.gd" type="Script" id=2]
+[ext_resource path="res://pickups/Banana.tscn" type="PackedScene" id=3]
+
+[node name="FruitSpawner" type="Node2D" groups=[
+"fruit_spawners",
+]]
+script = ExtResource( 2 )
+fruit_scene = ExtResource( 3 )
+
+[node name="BigPellet" parent="." instance=ExtResource( 1 )]
+
+[connection signal="collected" from="BigPellet" to="." method="_on_BigPellet_collected"]
