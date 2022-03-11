@@ -14,6 +14,7 @@ const scene_order = [
 	"TitleScreen",
 	"levels/level_1",
 	"levels/level_2",
+	"levels/level_3",
 	"GameOver",
 ]
 
