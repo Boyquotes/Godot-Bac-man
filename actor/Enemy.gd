@@ -90,7 +90,10 @@ func follow_path():
 
 func idle_around():
 	if facing == Facing.NONE:
-		queue_facing(Facing.LEFT)
+		for f in [Facing.LEFT, Facing.DOWN, Facing.RIGHT, Facing.UP]:
+			if can_move_in(f):
+				queue_facing(f)
+				return
 	elif not can_move_in(facing):
 		if can_move_in(get_left_facing(facing)):
 			queue_facing(get_left_facing(facing))
