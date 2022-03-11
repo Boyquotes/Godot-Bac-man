@@ -35,6 +35,10 @@ export var enemy_eaten_score = [
 onready var root = get_tree().get_root()
 
 
+func _ready():
+	randomize()
+
+
 func load_next_scene():
 	current_scene_index += 1
 	assert(
