@@ -20,3 +20,4 @@ frames = SubResource( 1 )
 
 [node name="AudioStreamPlayer" parent="." index="2"]
 stream = ExtResource( 3 )
+volume_db = -4.0
