@@ -435,6 +435,4 @@ position = Vector2( 112, 16 )
 [node name="RightZone" parent="WarpZone" index="1"]
 position = Vector2( 416, 16 )
 
-[connection signal="on_Actor_enter_warp" from="WarpZone" to="." method="_on_Actor_enter_warp"]
-
 [editable path="WarpZone"]

@@ -76,6 +76,10 @@ func connect_signals():
 		# warning-ignore: RETURN_VALUE_DISCARDED
 		p.connect("collected", self, "_on_Pickup_collected")
 
+	for w in get_tree().get_nodes_in_group("warpzones"):
+		# warning-ignore: RETURN_VALUE_DISCARDED
+		w.connect("Actor_entered_warp", self, "_on_Actor_entered_warp")
+
 
 func restart():
 	$Player.reset()
@@ -158,5 +162,5 @@ func _on_Player_powered_down():
 	emit_signal("player_powered_down")
 
 
-func _on_Actor_enter_warp(actor : Actor, destination : Vector2):
+func _on_Actor_entered_warp(actor : Actor, destination : Vector2):
 	actor.position = destination
