@@ -46,8 +46,8 @@ __meta__ = {
 }
 
 [node name="GodotLogo" type="Sprite" parent="."]
-position = Vector2( 256.216, 318.275 )
-scale = Vector2( 0.215961, 0.215961 )
+position = Vector2( 255.529, 325.579 )
+scale = Vector2( 0.17373, 0.17373 )
 texture = ExtResource( 5 )
 
 [node name="Control" type="Control" parent="."]
@@ -59,10 +59,10 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Control"]
-margin_left = 54.1766
-margin_top = 313.14
-margin_right = 148.177
-margin_bottom = 339.14
+margin_left = 74.019
+margin_top = 314.084
+margin_right = 168.019
+margin_bottom = 340.084
 text = "Made with"
 __meta__ = {
 "_edit_use_anchors_": false
